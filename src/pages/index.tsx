@@ -18,23 +18,17 @@ export default function Welcome() {
         className='flex w-[85%] flex-col gap-8 rounded-2xl border border-[#eaeaea] bg-[#fafafa] px-10 py-7 shadow-sm'
       >
         <div className='block'>
-          <label htmlFor='usernameOrEmail' className='text-lg'>
-            Username or email address
-          </label>
+          <label className='text-lg'>Username or email address</label>
           <input
-            name='usernameOrEmail'
             type='text'
             className='mt-2 w-full rounded border border-[#eaeaea] bg-none p-3 focus:border-emerald-300'
             placeholder='example@mail.io / your crazy username'
           />
         </div>
         <div className='block'>
-          <label htmlFor='password' className='text-lg'>
-            Password
-          </label>
+          <label className='text-lg'>Password</label>
           <div className='mt-2 flex rounded border border-[#eaeaea] bg-white focus-within:border-emerald-300'>
             <input
-              name='password'
               type={hiddenPassword ? 'password' : 'text'}
               className='w-[85%] rounded bg-none p-3'
               placeholder='super secret password'

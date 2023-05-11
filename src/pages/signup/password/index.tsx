@@ -13,22 +13,16 @@ export default function Password() {
         className='flex w-[85%] flex-col gap-8 rounded-2xl border border-[#eaeaea] bg-[#fafafa] px-10 py-7 shadow-sm'
       >
         <div className='block'>
-          <label htmlFor='password' className='text-lg'>
-            Password
-          </label>
+          <label className='text-lg'>Password</label>
           <input
-            name='password'
             type='password'
             className='mt-2 w-full rounded border border-[#eaeaea] bg-none p-3 focus:border-emerald-300'
             placeholder='secret'
           />
         </div>
         <div className='block'>
-          <label htmlFor='repeatPassword' className='text-lg'>
-            Repeat password
-          </label>
+          <label className='text-lg'>Repeat password</label>
           <input
-            name='repeatPassword'
             type='password'
             className='mt-2 w-full rounded border border-[#eaeaea] bg-none p-3 focus:border-emerald-300'
             placeholder='repeat secret'

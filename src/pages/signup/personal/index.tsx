@@ -34,25 +34,19 @@ export default function Personal() {
         className='flex w-[85%] flex-col gap-5 rounded-2xl border border-[#eaeaea] bg-[#fafafa] px-10 py-7 shadow-sm'
       >
         <div className='mt-2 flex items-center justify-start gap-5 rounded'>
-          <label htmlFor='age' className='text-lg'>
-            Age:
-          </label>
+          <label className='text-lg'>Age:</label>
           <input
-            name='age'
             type='number'
             className='box-border w-[165px] rounded border border-[#eaeaea] bg-none p-2 focus:border-emerald-300'
             placeholder=''
           />
         </div>
         <div className='mt-2 flex items-center justify-start gap-5 rounded'>
-          <label htmlFor='sex' className='text-lg'>
-            Sex:
-          </label>
+          <span className='text-lg'>Sex:</span>
           <div className='flex gap-3 text-lg'>
             <div className='relative flex items-center justify-center'>
               <input
                 className='h-7 w-7 cursor-pointer appearance-none rounded-full border border-[#eaeaea] checked:cursor-default checked:border-transparent checked:bg-emerald-300'
-                name='male'
                 type='checkbox'
                 checked={sex === 'm'}
                 onChange={() => setSex('m')}
@@ -73,13 +67,12 @@ export default function Personal() {
                 </svg>
               )}
             </div>
-            <label htmlFor='male'>male</label>
+            <label className='text-lg'>male</label>
           </div>
           <div className='flex gap-3 text-lg'>
             <div className='relative flex items-center justify-center'>
               <input
                 className='h-7 w-7 cursor-pointer appearance-none rounded-full border border-[#eaeaea] checked:cursor-default checked:border-transparent checked:bg-emerald-300'
-                name='female'
                 type='checkbox'
                 checked={sex === 'f'}
                 onChange={() => setSex('f')}
@@ -100,15 +93,12 @@ export default function Personal() {
                 </svg>
               )}
             </div>
-            <label htmlFor='female'>female</label>
+            <label className='text-lg'>female</label>
           </div>
         </div>
         <div className='mt-2 flex items-center justify-start gap-5 rounded'>
-          <label htmlFor='weight' className='text-lg'>
-            Weight:
-          </label>
+          <label className='text-lg'>Weight:</label>
           <input
-            name='weight'
             type='number'
             className='box-border w-[165px] rounded border border-[#eaeaea] bg-none p-2 focus:border-emerald-300'
             placeholder=''
@@ -116,11 +106,8 @@ export default function Personal() {
           <label className='text-lg'>kg</label>
         </div>
         <div className='mt-2 flex items-center justify-start gap-5 rounded'>
-          <label htmlFor='height' className='text-lg'>
-            Height:
-          </label>
+          <label className='text-lg'>Height:</label>
           <input
-            name='height'
             type='number'
             className='box-border w-[165px] rounded border border-[#eaeaea] bg-none p-2 focus:border-emerald-300'
             placeholder=''

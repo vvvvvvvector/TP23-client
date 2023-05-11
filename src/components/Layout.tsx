@@ -6,8 +6,8 @@ interface LayoutProps {
 
 const Layout: FC<LayoutProps> = ({ children }) => {
   return (
-    <div className='h-full w-full grid place-items-center'>
-      <div className='flex justify-center flex-col items-center gap-7 h-full w-[550px]'>
+    <div className='grid h-full w-full place-items-center'>
+      <div className='flex h-full w-[550px] flex-col items-center justify-center gap-7'>
         {children}
       </div>
     </div>

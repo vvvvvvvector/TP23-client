@@ -13,22 +13,16 @@ export default function Identifier() {
         className='flex w-[85%] flex-col gap-8 rounded-2xl border border-[#eaeaea] bg-[#fafafa] px-10 py-7 shadow-sm'
       >
         <div className='block'>
-          <label htmlFor='email' className='text-lg'>
-            Email address
-          </label>
+          <label className='text-lg'>Email address</label>
           <input
-            name='email'
             type='text'
             className='mt-2 w-full rounded border border-[#eaeaea] bg-none p-3 focus:border-emerald-300'
             placeholder='example@mail.io'
           />
         </div>
         <div className='block'>
-          <label htmlFor='username' className='text-lg'>
-            Username
-          </label>
+          <label className='text-lg'>Username</label>
           <input
-            name='username'
             type='text'
             className='mt-2 w-full rounded border border-[#eaeaea] bg-none p-3 focus:border-emerald-300'
             placeholder='crazy username'
