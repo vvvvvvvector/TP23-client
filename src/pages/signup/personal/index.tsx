@@ -4,21 +4,6 @@ import Layout from '@/components/Layout';
 
 const options = ['minimal', 'weak', 'medium', 'high', 'extra activity'];
 
-{
-  /* <svg
-width='13'
-height='11'
-viewBox='0 0 13 11'
-fill='none'
-xmlns='http://www.w3.org/2000/svg'
->
-<path
-  d='M4.26691 11L0 6.60425L1.9445 4.60103L4.26691 7.00064L11.0555 0L13 2.00322L4.26691 11Z'
-  fill='white'
-/>
-</svg> */
-}
-
 export default function Personal() {
   const [opened, setOpened] = useState(false);
   const [activity, setActivity] = useState(options[0]);
@@ -31,13 +16,13 @@ export default function Personal() {
       </h1>
       <form
         onSubmit={(e) => e.preventDefault()}
-        className='flex w-[85%] flex-col gap-5 rounded-2xl border border-[#eaeaea] bg-[#fafafa] px-10 py-7 shadow-sm'
+        className='flex w-[87%] flex-col gap-4 rounded-2xl border border-[#eaeaea] bg-[#fafafa] px-8 py-5 shadow-sm'
       >
         <div className='mt-2 flex items-center justify-start gap-5 rounded'>
           <label className='text-lg'>Age:</label>
           <input
             type='number'
-            className='box-border w-[165px] rounded border border-[#eaeaea] bg-none p-2 focus:border-emerald-300'
+            className='box-border w-full max-w-[165px] rounded border border-[#eaeaea] bg-none p-2 focus:border-emerald-300'
             placeholder=''
           />
         </div>
@@ -46,7 +31,7 @@ export default function Personal() {
           <div className='flex gap-3 text-lg'>
             <div className='relative flex items-center justify-center'>
               <input
-                className='h-7 w-7 cursor-pointer appearance-none rounded-full border border-[#eaeaea] checked:cursor-default checked:border-transparent checked:bg-emerald-300'
+                className='h-7 w-7 cursor-pointer appearance-none rounded-full border border-[#eaeaea] bg-white checked:cursor-default checked:border-transparent checked:bg-emerald-300'
                 type='checkbox'
                 checked={sex === 'm'}
                 onChange={() => setSex('m')}
@@ -72,7 +57,7 @@ export default function Personal() {
           <div className='flex gap-3 text-lg'>
             <div className='relative flex items-center justify-center'>
               <input
-                className='h-7 w-7 cursor-pointer appearance-none rounded-full border border-[#eaeaea] checked:cursor-default checked:border-transparent checked:bg-emerald-300'
+                className='h-7 w-7 cursor-pointer appearance-none rounded-full border border-[#eaeaea] bg-white checked:cursor-default checked:border-transparent checked:bg-emerald-300'
                 type='checkbox'
                 checked={sex === 'f'}
                 onChange={() => setSex('f')}
@@ -100,7 +85,7 @@ export default function Personal() {
           <label className='text-lg'>Weight:</label>
           <input
             type='number'
-            className='box-border w-[165px] rounded border border-[#eaeaea] bg-none p-2 focus:border-emerald-300'
+            className='box-border w-full max-w-[165px] rounded border border-[#eaeaea] bg-none p-2 focus:border-emerald-300'
             placeholder=''
           />
           <label className='text-lg'>kg</label>
@@ -109,7 +94,7 @@ export default function Personal() {
           <label className='text-lg'>Height:</label>
           <input
             type='number'
-            className='box-border w-[165px] rounded border border-[#eaeaea] bg-none p-2 focus:border-emerald-300'
+            className='box-border w-full max-w-[165px] rounded border border-[#eaeaea] bg-none p-2 focus:border-emerald-300'
             placeholder=''
           />
           <span className='text-lg'>cm</span>
@@ -118,7 +103,7 @@ export default function Personal() {
           <span className='text-lg'>Phisical activity:</span>
           <div
             onClick={() => setOpened(!opened)}
-            className={`relative w-[165px] cursor-pointer rounded border bg-white p-2 ${
+            className={`relative w-full max-w-[165px] cursor-pointer rounded border bg-white p-2 ${
               opened ? 'border-emerald-300' : 'border-[#eaeaea]'
             }`}
           >

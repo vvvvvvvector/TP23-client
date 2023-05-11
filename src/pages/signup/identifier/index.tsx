@@ -10,7 +10,7 @@ export default function Identifier() {
       <h1 className='text-center text-3xl font-bold'>Create your account</h1>
       <form
         onSubmit={(e) => e.preventDefault()}
-        className='flex w-[85%] flex-col gap-8 rounded-2xl border border-[#eaeaea] bg-[#fafafa] px-10 py-7 shadow-sm'
+        className='flex w-[87%] flex-col gap-8 rounded-2xl border border-[#eaeaea] bg-[#fafafa] px-8 py-5 shadow-sm'
       >
         <div className='block'>
           <label className='text-lg'>Email address</label>

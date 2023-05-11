@@ -15,14 +15,14 @@ export default function Welcome() {
       <h1 className='text-center text-3xl font-bold'>Welcome back 🎉</h1>
       <form
         onSubmit={(e) => e.preventDefault()}
-        className='flex w-[85%] flex-col gap-8 rounded-2xl border border-[#eaeaea] bg-[#fafafa] px-10 py-7 shadow-sm'
+        className='flex w-[87%] flex-col gap-8 rounded-2xl border border-[#eaeaea] bg-[#fafafa] px-8 py-5 shadow-sm'
       >
         <div className='block'>
           <label className='text-lg'>Username or email address</label>
           <input
             type='text'
             className='mt-2 w-full rounded border border-[#eaeaea] bg-none p-3 focus:border-emerald-300'
-            placeholder='example@mail.io / your crazy username'
+            placeholder='example@mail.io'
           />
         </div>
         <div className='block'>
@@ -50,7 +50,7 @@ export default function Welcome() {
           Sign in
         </button>
       </form>
-      <div className='flex w-[85%] justify-center gap-3 p-4 font-semibold'>
+      <div className='flex w-[85%] items-center justify-center gap-3 p-4 font-semibold max-[450px]:flex-col'>
         <span>Don't have an account?</span>
         <Link href='/signup/identifier'>
           <span className='cursor-pointer text-blue-400 hover:text-blue-500 hover:underline'>
