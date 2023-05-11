@@ -7,10 +7,10 @@ export default function Identifier() {
 
   return (
     <Layout>
-      <h1 className='font-bold text-3xl text-center'>Create your account</h1>
+      <h1 className='text-center text-3xl font-bold'>Create your account</h1>
       <form
         onSubmit={(e) => e.preventDefault()}
-        className='w-[85%] shadow-sm flex flex-col gap-8 bg-[#fafafa] py-7 px-10 rounded-2xl border border-[#eaeaea]'
+        className='flex w-[85%] flex-col gap-8 rounded-2xl border border-[#eaeaea] bg-[#fafafa] px-10 py-7 shadow-sm'
       >
         <div className='block'>
           <label htmlFor='email' className='text-lg'>
@@ -19,7 +19,7 @@ export default function Identifier() {
           <input
             name='email'
             type='text'
-            className='w-full mt-2 p-3 bg-none focus:border-emerald-300 rounded border border-[#eaeaea]'
+            className='mt-2 w-full rounded border border-[#eaeaea] bg-none p-3 focus:border-emerald-300'
             placeholder='example@mail.io'
           />
         </div>
@@ -30,13 +30,13 @@ export default function Identifier() {
           <input
             name='username'
             type='text'
-            className='w-full mt-2 p-3 bg-none focus:border-emerald-300 rounded border border-[#eaeaea]'
+            className='mt-2 w-full rounded border border-[#eaeaea] bg-none p-3 focus:border-emerald-300'
             placeholder='crazy username'
           />
         </div>
         <button
           onClick={() => router.push('/signup/password')}
-          className='w-[100%] font-medium bg-emerald-300 hover:bg-emerald-400 active:bg-emerald-500 transition-[background-color] text-white rounded p-3'
+          className='w-[100%] rounded bg-emerald-300 p-3 font-medium text-white transition-[background-color] hover:bg-emerald-400 active:bg-emerald-500'
         >
           Next step
         </button>

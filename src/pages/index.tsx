@@ -12,10 +12,10 @@ export default function Welcome() {
 
   return (
     <Layout>
-      <h1 className='font-bold text-3xl text-center'>Welcome back 🎉</h1>
+      <h1 className='text-center text-3xl font-bold'>Welcome back 🎉</h1>
       <form
         onSubmit={(e) => e.preventDefault()}
-        className='w-[85%] shadow-sm flex flex-col gap-8 bg-[#fafafa] py-7 px-10 rounded-2xl border border-[#eaeaea]'
+        className='flex w-[85%] flex-col gap-8 rounded-2xl border border-[#eaeaea] bg-[#fafafa] px-10 py-7 shadow-sm'
       >
         <div className='block'>
           <label htmlFor='usernameOrEmail' className='text-lg'>
@@ -24,7 +24,7 @@ export default function Welcome() {
           <input
             name='usernameOrEmail'
             type='text'
-            className='w-full mt-2 p-3 bg-none focus:border-emerald-300 rounded border border-[#eaeaea]'
+            className='mt-2 w-full rounded border border-[#eaeaea] bg-none p-3 focus:border-emerald-300'
             placeholder='example@mail.io / your crazy username'
           />
         </div>
@@ -32,16 +32,16 @@ export default function Welcome() {
           <label htmlFor='password' className='text-lg'>
             Password
           </label>
-          <div className='mt-2 rounded bg-white flex border border-[#eaeaea] focus-within:border-emerald-300'>
+          <div className='mt-2 flex rounded border border-[#eaeaea] bg-white focus-within:border-emerald-300'>
             <input
               name='password'
               type={hiddenPassword ? 'password' : 'text'}
-              className='bg-none p-3 rounded w-[85%]'
+              className='w-[85%] rounded bg-none p-3'
               placeholder='super secret password'
             />
             <div
               onClick={() => setHiddenPassword(!hiddenPassword)}
-              className='rounded-r-[0.25rem] cursor-pointer flex flex-1 justify-center items-center hover:bg-gray-100 transition-[background-color]'
+              className='flex flex-1 cursor-pointer items-center justify-center rounded-r-[0.25rem] transition-[background-color] hover:bg-gray-100'
             >
               <span className='text-[23px]'>
                 {hiddenPassword ? '🙈' : '🙉'}
@@ -51,15 +51,15 @@ export default function Welcome() {
         </div>
         <button
           type='submit'
-          className='font-medium bg-emerald-300 hover:bg-emerald-400 active:bg-emerald-500 transition-[background-color] text-white rounded p-3'
+          className='rounded bg-emerald-300 p-3 font-medium text-white transition-[background-color] hover:bg-emerald-400 active:bg-emerald-500'
         >
           Sign in
         </button>
       </form>
-      <div className='w-[85%] font-semibold flex justify-center p-4 gap-3'>
+      <div className='flex w-[85%] justify-center gap-3 p-4 font-semibold'>
         <span>Don't have an account?</span>
         <Link href='/signup/identifier'>
-          <span className='text-blue-400 cursor-pointer hover:text-blue-500 hover:underline'>
+          <span className='cursor-pointer text-blue-400 hover:text-blue-500 hover:underline'>
             Sign up
           </span>
         </Link>

@@ -18,7 +18,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <title>{title}</title>
       </Head>
       <main
-        className={`${roboto.className} h-full w-full bg-white rounded-2xl shadow-lg`}
+        className={`${roboto.className} h-full w-full rounded-2xl bg-white shadow-lg`}
       >
         <Component {...pageProps} />
       </main>
