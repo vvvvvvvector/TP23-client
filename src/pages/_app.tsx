@@ -4,7 +4,7 @@ import { Rubik } from 'next/font/google';
 
 import '@/styles/globals.css';
 
-const roboto = Rubik({
+const rubik = Rubik({
   subsets: ['latin'],
   weight: ['300', '400', '500', '700', '900'],
 });
@@ -18,7 +18,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <title>{title}</title>
       </Head>
       <main
-        className={`${roboto.className} h-full w-full rounded-2xl bg-white shadow-lg`}
+        className={`${rubik.className} grid h-full w-full place-items-center`}
       >
         <Component {...pageProps} />
       </main>
