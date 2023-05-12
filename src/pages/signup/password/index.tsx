@@ -6,14 +6,19 @@ import { useRouter } from 'next/router';
 
 import Layout from '@/components/Layout';
 
-const validationSchema = z.object({
-  password: z.string().nonempty({
-    message: 'password is required.',
-  }),
-  confirmPassword: z.string().nonempty({ message: 'confirm is required.' }),
-});
+const passwordValidationSchema = z
+  .object({
+    password: z.string().nonempty({
+      message: 'Password is required.',
+    }),
+    confirm: z.string().nonempty({ message: 'Confirm is required.' }),
+  })
+  .refine((data) => data.password === data.confirm, {
+    path: ['confirm'],
+    message: "Passwords don't match.",
+  });
 
-type ValidationSchemaType = z.infer<typeof validationSchema>;
+type ValidationSchemaType = z.infer<typeof passwordValidationSchema>;
 
 export default function Password() {
   const router = useRouter();
@@ -23,7 +28,7 @@ export default function Password() {
     register,
     formState: { errors },
   } = useForm<ValidationSchemaType>({
-    resolver: zodResolver(validationSchema),
+    resolver: zodResolver(passwordValidationSchema),
   });
 
   const onSubmit = (data: FieldValues) => {
@@ -36,7 +41,7 @@ export default function Password() {
       <h1 className='text-center text-3xl font-bold'>Create a password 🔒</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className='flex w-[87%] flex-col gap-8 rounded-2xl border border-[#eaeaea] bg-[#fafafa] px-8 py-5 shadow-sm'
+        className='flex w-[87%] flex-col gap-5 rounded-2xl border border-[#eaeaea] bg-[#fafafa] px-8 py-5 shadow-sm'
       >
         <div className='block'>
           <label className='text-lg'>Password</label>
@@ -53,16 +58,14 @@ export default function Password() {
         <div className='block'>
           <label className='text-lg'>Confirm password</label>
           <input
-            {...register('confirmPassword')}
+            {...register('confirm')}
             type='password'
             className={`${
               errors.password ? 'border-pink-400' : 'focus:border-emerald-300'
             } mt-2 w-full rounded border border-[#eaeaea] bg-none p-3`}
             placeholder='confirm secret'
           />
-          {errors.confirmPassword && (
-            <p className='mt-3'>{errors.confirmPassword.message}</p>
-          )}
+          {errors.confirm && <p className='mt-3'>{errors.confirm.message}</p>}
         </div>
         <button
           disabled={Object.keys(errors).length > 0}
