@@ -3,6 +3,8 @@
 
 import { useState } from 'react';
 
+import toast from 'react-hot-toast';
+
 import { useForm, FieldValues } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -41,6 +43,7 @@ export default function Welcome() {
 
   const onSubmit = (data: FieldValues) => {
     console.log(data);
+    toast.success(<pre>{JSON.stringify(data, null, 2)}</pre>);
   };
 
   return (

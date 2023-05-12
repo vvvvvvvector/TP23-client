@@ -2,6 +2,10 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { Rubik } from 'next/font/google';
 
+import { Toaster } from 'react-hot-toast';
+
+import SignUpProvider from '@/providers/SignUpProvider';
+
 import '@/styles/globals.css';
 
 const rubik = Rubik({
@@ -20,7 +24,10 @@ export default function App({ Component, pageProps }: AppProps) {
       <main
         className={`${rubik.className} grid h-full w-full place-items-center`}
       >
-        <Component {...pageProps} />
+        <SignUpProvider>
+          <Component {...pageProps} />
+        </SignUpProvider>
+        <Toaster position='top-center' />
       </main>
     </>
   );

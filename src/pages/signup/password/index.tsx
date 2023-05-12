@@ -4,6 +4,10 @@ import { z } from 'zod';
 
 import { useRouter } from 'next/router';
 
+import { useContext } from 'react';
+import { PasswordContext } from '@/providers/PasswordProvider';
+import { PasswordContextStateType } from '@/providers/PasswordProvider';
+
 import Layout from '@/components/Layout';
 
 const passwordValidationSchema = z
@@ -23,6 +27,10 @@ type ValidationSchemaType = z.infer<typeof passwordValidationSchema>;
 export default function Password() {
   const router = useRouter();
 
+  const [_, setPassword] = useContext(
+    PasswordContext
+  ) as PasswordContextStateType;
+
   const {
     handleSubmit,
     register,
@@ -32,7 +40,10 @@ export default function Password() {
   });
 
   const onSubmit = (data: FieldValues) => {
-    console.log(data);
+    setPassword({
+      password: data.password,
+    });
+
     router.push('/signup/personal');
   };
 
