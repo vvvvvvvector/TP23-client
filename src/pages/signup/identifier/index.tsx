@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 
 import Layout from '@/components/Layout';
 
-const validationSchema = z.object({
+const identifierValidationSchema = z.object({
   email: z
     .string()
     .nonempty({
@@ -19,7 +19,7 @@ const validationSchema = z.object({
     .min(5, { message: 'Username must be at least 5 characters long.' }),
 });
 
-type ValidationSchemaType = z.infer<typeof validationSchema>;
+type ValidationSchemaType = z.infer<typeof identifierValidationSchema>;
 
 export default function Identifier() {
   const router = useRouter();
@@ -29,7 +29,7 @@ export default function Identifier() {
     register,
     formState: { errors },
   } = useForm<ValidationSchemaType>({
-    resolver: zodResolver(validationSchema),
+    resolver: zodResolver(identifierValidationSchema),
   });
 
   const onSubmit = (data: FieldValues) => {
@@ -42,7 +42,7 @@ export default function Identifier() {
       <h1 className='text-center text-3xl font-bold'>Create your account</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className='flex w-[87%] flex-col gap-8 rounded-2xl border border-[#eaeaea] bg-[#fafafa] px-8 py-5 shadow-sm'
+        className='flex w-[87%] flex-col gap-5 rounded-2xl border border-[#eaeaea] bg-[#fafafa] px-8 py-5 shadow-sm'
       >
         <div className='block'>
           <label className='text-lg'>Email address</label>

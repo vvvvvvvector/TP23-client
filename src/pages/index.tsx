@@ -11,7 +11,7 @@ import Link from 'next/link';
 
 import Layout from '@/components/Layout';
 
-const validationSchema = z.object({
+const signInValidationSchema = z.object({
   emailOrUsername: z.string().nonempty({
     message: 'Email or username is required.',
   }),
@@ -26,7 +26,7 @@ const validationSchema = z.object({
     }),
 });
 
-type ValidationSchemaType = z.infer<typeof validationSchema>;
+type ValidationSchemaType = z.infer<typeof signInValidationSchema>;
 
 export default function Welcome() {
   const {
@@ -34,7 +34,7 @@ export default function Welcome() {
     handleSubmit,
     formState: { errors },
   } = useForm<ValidationSchemaType>({
-    resolver: zodResolver(validationSchema),
+    resolver: zodResolver(signInValidationSchema),
   });
 
   const [hiddenPassword, setHiddenPassword] = useState(true);
@@ -48,7 +48,7 @@ export default function Welcome() {
       <h1 className='text-center text-3xl font-bold'>Welcome back 🎉</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className='flex w-[87%] flex-col gap-8 rounded-2xl border border-[#eaeaea] bg-[#fafafa] px-8 py-5 shadow-sm'
+        className='flex w-[87%] flex-col gap-5 rounded-2xl border border-[#eaeaea] bg-[#fafafa] px-8 py-5 shadow-sm'
       >
         <div className='block'>
           <label className='text-lg'>Username or email address</label>
