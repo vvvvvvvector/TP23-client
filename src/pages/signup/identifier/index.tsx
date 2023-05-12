@@ -4,7 +4,12 @@ import { z } from 'zod';
 
 import { useRouter } from 'next/router';
 
+import { useContext } from 'react';
+import { IndetifierContext } from '@/providers/IdentifierProvider';
+import { IndetifierContextStateType } from '@/providers/IdentifierProvider';
+
 import Layout from '@/components/Layout';
+import { Identifier } from 'typescript';
 
 const identifierValidationSchema = z.object({
   email: z
@@ -24,6 +29,10 @@ type ValidationSchemaType = z.infer<typeof identifierValidationSchema>;
 export default function Identifier() {
   const router = useRouter();
 
+  const [_, setIdentifier] = useContext(
+    IndetifierContext
+  ) as IndetifierContextStateType;
+
   const {
     handleSubmit,
     register,
@@ -33,7 +42,11 @@ export default function Identifier() {
   });
 
   const onSubmit = (data: FieldValues) => {
-    console.log(data);
+    setIdentifier({
+      email: data.email,
+      username: data.username,
+    });
+
     router.push('/signup/password');
   };
 

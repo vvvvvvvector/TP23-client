@@ -4,6 +4,16 @@ import { z } from 'zod';
 
 import { useRef, useEffect, useState } from 'react';
 
+import { toast } from 'react-hot-toast';
+
+import { useContext } from 'react';
+
+import { PasswordContext } from '@/providers/PasswordProvider';
+import { PasswordContextStateType } from '@/providers/PasswordProvider';
+
+import { IndetifierContext } from '@/providers/IdentifierProvider';
+import { IndetifierContextStateType } from '@/providers/IdentifierProvider';
+
 import Layout from '@/components/Layout';
 
 const options = ['minimal', 'weak', 'medium', 'high', 'extra activity'];
@@ -23,6 +33,12 @@ export default function Personal() {
 
   const [opened, setOpened] = useState(false);
 
+  const [identifier] = useContext(
+    IndetifierContext
+  ) as IndetifierContextStateType;
+
+  const [password] = useContext(PasswordContext) as PasswordContextStateType;
+
   const [activity, setActivity] = useState<string>(options[0]);
   const [sex, setSex] = useState<'m' | 'f'>('m');
 
@@ -36,7 +52,30 @@ export default function Personal() {
   });
 
   const onSubmit = (data: FieldValues) => {
-    console.log(data);
+    const user: {
+      email: string;
+      username: string;
+      password: string;
+      age: string;
+      sex: 'm' | 'f';
+      weight: string;
+      height: string;
+      activity: string;
+    } = {
+      ...identifier,
+      ...password,
+      ...{
+        age: data.age,
+        sex: data.sex,
+        weight: data.weight,
+        height: data.height,
+        activity: data.activity,
+      },
+    };
+
+    console.log(user);
+
+    toast.success(<pre>{JSON.stringify(user, null, 2)}</pre>);
   };
 
   useEffect(() => {
