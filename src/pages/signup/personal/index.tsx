@@ -1,13 +1,29 @@
-import { useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 import Layout from '@/components/Layout';
 
 const options = ['minimal', 'weak', 'medium', 'high', 'extra activity'];
 
 export default function Personal() {
+  const selectRef = useRef<HTMLDivElement>(null);
+
   const [opened, setOpened] = useState(false);
   const [activity, setActivity] = useState(options[0]);
   const [sex, setSex] = useState<'m' | 'f'>('m');
+
+  useEffect(() => {
+    const clickOutside = (e: MouseEvent) => {
+      if (selectRef.current && !e.composedPath().includes(selectRef.current)) {
+        setOpened(false);
+      }
+    };
+
+    document.body.addEventListener('click', clickOutside);
+
+    return () => {
+      document.body.removeEventListener('click', clickOutside);
+    };
+  }, []);
 
   return (
     <Layout>
@@ -102,6 +118,7 @@ export default function Personal() {
         <div className='mt-2 flex flex-row items-center justify-start gap-5 rounded'>
           <span className='text-lg'>Phisical activity:</span>
           <div
+            ref={selectRef}
             onClick={() => setOpened(!opened)}
             className={`relative w-full max-w-[165px] cursor-pointer rounded border bg-white p-2 ${
               opened ? 'border-emerald-300' : 'border-[#eaeaea]'
