@@ -12,9 +12,14 @@ import Layout from '@/components/Layout';
 
 const passwordValidationSchema = z
   .object({
-    password: z.string().nonempty({
-      message: 'Password is required.',
-    }),
+    password: z
+      .string()
+      .nonempty({
+        message: 'Password is required.',
+      })
+      .regex(new RegExp('^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9]{8,}$'), {
+        message: 'Minimum 8 characters, at least 1 letter and 1 number',
+      }),
     confirm: z.string().nonempty({ message: 'Confirm is required.' }),
   })
   .refine((data) => data.password === data.confirm, {

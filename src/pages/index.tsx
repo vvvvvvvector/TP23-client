@@ -17,15 +17,7 @@ const signInValidationSchema = z.object({
   emailOrUsername: z.string().nonempty({
     message: 'Email or username is required.',
   }),
-  password: z
-    .string()
-    .nonempty({ message: 'Password is required.' })
-    .min(8, {
-      message: 'Password must contain at least 8 characters.',
-    })
-    .regex(new RegExp('^[0-9]*$'), {
-      message: 'Password is too weak.',
-    }),
+  password: z.string().nonempty({ message: 'Password is required.' }),
 });
 
 type ValidationSchemaType = z.infer<typeof signInValidationSchema>;
