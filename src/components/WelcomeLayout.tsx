@@ -11,10 +11,10 @@ const Stepper = () => {
   return (
     <>
       {router.asPath !== '/' && (
-        <div className='flex w-full flex-row items-center justify-center'>
+        <div className='flex w-full max-w-[90%] flex-row items-center justify-center'>
           <button
             onClick={() => router.push('/signup/identifier')}
-            className='inline-block h-10 w-10 rounded-full border-2 border-emerald-300 text-center disabled:border-gray-300'
+            className='inline-block h-10 w-[40px] max-w-[40px] rounded-full border-2 border-emerald-300 text-center font-semibold disabled:border-gray-300'
           >
             1
           </button>
@@ -29,7 +29,7 @@ const Stepper = () => {
           <button
             onClick={() => router.push('/signup/password')}
             disabled={router.asPath === '/signup/identifier'}
-            className='inline-block h-10 w-10 rounded-full border-2 border-emerald-300 text-center disabled:border-gray-300'
+            className='inline-block h-10 w-[40px] max-w-[40px] rounded-full border-2 border-emerald-300 text-center font-semibold disabled:border-gray-300'
           >
             2
           </button>
@@ -46,7 +46,7 @@ const Stepper = () => {
               router.asPath === '/signup/identifier' ||
               router.asPath === '/signup/password'
             }
-            className='inline-block h-10 w-10 rounded-full border-2 border-emerald-300 text-center disabled:border-gray-300'
+            className='inline-block h-10 w-[40px] max-w-[40px] rounded-full border-2 border-emerald-300 text-center font-semibold disabled:border-gray-300'
           >
             3
           </button>
