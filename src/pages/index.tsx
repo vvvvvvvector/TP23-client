@@ -1,53 +1,36 @@
-// welcome / start page
-// useEffect -> if user token hasn't expired -> redirect to www.page.com/user-name
-
 import { useState } from 'react';
-
 import toast from 'react-hot-toast';
-
 import { useForm, FieldValues } from 'react-hook-form';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
-import Link from 'next/link';
-
-import Layout from '@/components/Layout';
+import WelcomeLayout from '@/components/WelcomeLayout';
 
 const signInValidationSchema = z.object({
   emailOrUsername: z.string().nonempty({
     message: 'Email or username is required.',
   }),
-  password: z
-    .string()
-    .nonempty({ message: 'Password is required.' })
-    .min(8, {
-      message: 'Password must contain at least 8 characters.',
-    })
-    .regex(new RegExp('^[0-9]*$'), {
-      message: 'Password is too weak.',
-    }),
+  password: z.string().nonempty({ message: 'Password is required.' }),
 });
-
-type ValidationSchemaType = z.infer<typeof signInValidationSchema>;
 
 export default function Welcome() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ValidationSchemaType>({
+  } = useForm<z.infer<typeof signInValidationSchema>>({
     resolver: zodResolver(signInValidationSchema),
   });
 
   const [hiddenPassword, setHiddenPassword] = useState(true);
 
   const onSubmit = (data: FieldValues) => {
-    console.log(data);
     toast.success(<pre>{JSON.stringify(data, null, 2)}</pre>);
   };
 
   return (
-    <Layout>
+    <WelcomeLayout>
       <h1 className='text-center text-3xl font-bold'>Welcome back 🎉</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -104,14 +87,6 @@ export default function Welcome() {
           Sign in
         </button>
       </form>
-      <div className='flex w-[85%] items-center justify-center gap-3 p-4 font-semibold max-[450px]:flex-col'>
-        <span>Don't have an account?</span>
-        <Link href='/signup/identifier'>
-          <span className='cursor-pointer text-blue-400 hover:text-blue-500 hover:underline'>
-            Sign up
-          </span>
-        </Link>
-      </div>
-    </Layout>
+    </WelcomeLayout>
   );
 }
