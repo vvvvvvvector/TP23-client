@@ -67,7 +67,9 @@ export default function Personal() {
       activity: string;
     } = {
       ...identifier,
-      ...password,
+      ...{
+        password: password.password,
+      },
       ...{
         age: personal.age,
         sex: personal.sex,
