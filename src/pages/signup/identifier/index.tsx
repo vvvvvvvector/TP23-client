@@ -1,15 +1,15 @@
+import { useContext } from 'react';
 import { useForm, FieldValues } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 
 import { useRouter } from 'next/router';
 
-import { useContext } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+
 import { IndetifierContext } from '@/providers/IdentifierProvider';
 import { IndetifierContextStateType } from '@/providers/IdentifierProvider';
 
-import Layout from '@/components/Layout';
-import { Identifier } from 'typescript';
+import WelcomeLayout from '@/components/WelcomeLayout';
 
 const identifierValidationSchema = z.object({
   email: z
@@ -24,12 +24,10 @@ const identifierValidationSchema = z.object({
     .min(5, { message: 'Username must be at least 5 characters long.' }),
 });
 
-type ValidationSchemaType = z.infer<typeof identifierValidationSchema>;
-
 export default function Identifier() {
   const router = useRouter();
 
-  const [_, setIdentifier] = useContext(
+  const [identifier, setIdentifier] = useContext(
     IndetifierContext
   ) as IndetifierContextStateType;
 
@@ -37,7 +35,7 @@ export default function Identifier() {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<ValidationSchemaType>({
+  } = useForm<z.infer<typeof identifierValidationSchema>>({
     resolver: zodResolver(identifierValidationSchema),
   });
 
@@ -51,7 +49,7 @@ export default function Identifier() {
   };
 
   return (
-    <Layout>
+    <WelcomeLayout>
       <h1 className='text-center text-3xl font-bold'>Create your account</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -60,7 +58,12 @@ export default function Identifier() {
         <div className='block'>
           <label className='text-lg'>Email address</label>
           <input
-            {...register('email')}
+            {...register('email', {
+              onChange(event) {
+                setIdentifier({ ...identifier, email: event.target.value });
+              },
+            })}
+            value={identifier?.email}
             spellCheck={false}
             type='text'
             className={`${
@@ -73,7 +76,12 @@ export default function Identifier() {
         <div className='block'>
           <label className='text-lg'>Username</label>
           <input
-            {...register('username')}
+            {...register('username', {
+              onChange(event) {
+                setIdentifier({ ...identifier, username: event.target.value });
+              },
+            })}
+            value={identifier?.username}
             spellCheck={false}
             type='text'
             className={`${
@@ -91,6 +99,6 @@ export default function Identifier() {
           Next step
         </button>
       </form>
-    </Layout>
+    </WelcomeLayout>
   );
 }

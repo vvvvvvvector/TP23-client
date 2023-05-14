@@ -1,10 +1,9 @@
+import { useRef, useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { useForm, FieldValues } from 'react-hook-form';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-
-import { useRef, useEffect, useState } from 'react';
-
-import { toast } from 'react-hot-toast';
 
 import { useContext } from 'react';
 
@@ -14,7 +13,10 @@ import { PasswordContextStateType } from '@/providers/PasswordProvider';
 import { IndetifierContext } from '@/providers/IdentifierProvider';
 import { IndetifierContextStateType } from '@/providers/IdentifierProvider';
 
-import Layout from '@/components/Layout';
+import { PersonalContext } from '@/providers/PersonalProvider';
+import { PersonalContextStateType } from '@/providers/PersonalProvider';
+
+import WelcomeLayout from '@/components/WelcomeLayout';
 
 const options = ['minimal', 'weak', 'medium', 'high', 'extra activity'];
 
@@ -26,12 +28,14 @@ const personalValidationSchema = z.object({
   activity: z.string(),
 });
 
-type ValidationSchemaType = z.infer<typeof personalValidationSchema>;
-
 export default function Personal() {
   const selectRef = useRef<HTMLDivElement>(null);
 
   const [opened, setOpened] = useState(false);
+
+  const [personal, setPersonal] = useContext(
+    PersonalContext
+  ) as PersonalContextStateType;
 
   const [identifier] = useContext(
     IndetifierContext
@@ -40,14 +44,14 @@ export default function Personal() {
   const [password] = useContext(PasswordContext) as PasswordContextStateType;
 
   const [activity, setActivity] = useState<string>(options[0]);
-  const [sex, setSex] = useState<'m' | 'f'>('m');
+  const [sex, setSex] = useState<string>('m');
 
   const {
     handleSubmit,
     register,
     setValue,
     formState: { errors },
-  } = useForm<ValidationSchemaType>({
+  } = useForm<z.infer<typeof personalValidationSchema>>({
     resolver: zodResolver(personalValidationSchema),
   });
 
@@ -57,7 +61,7 @@ export default function Personal() {
       username: string;
       password: string;
       age: string;
-      sex: 'm' | 'f';
+      sex: string;
       weight: string;
       height: string;
       activity: string;
@@ -65,11 +69,11 @@ export default function Personal() {
       ...identifier,
       ...password,
       ...{
-        age: data.age,
-        sex: data.sex,
-        weight: data.weight,
-        height: data.height,
-        activity: data.activity,
+        age: personal.age,
+        sex: personal.sex,
+        weight: personal.weight,
+        height: personal.height,
+        activity: personal.activity,
       },
     };
 
@@ -79,8 +83,15 @@ export default function Personal() {
   };
 
   useEffect(() => {
-    register('activity');
+    register('activity', {
+      onChange() {
+        setPersonal({ ...personal, activity: activity });
+      },
+    });
+
     setValue('activity', activity);
+
+    setSex(personal.sex);
 
     const clickOutside = (e: MouseEvent) => {
       if (selectRef.current && !e.composedPath().includes(selectRef.current)) {
@@ -95,8 +106,12 @@ export default function Personal() {
     };
   }, []);
 
+  useEffect(() => {
+    setPersonal({ ...personal, sex });
+  }, [sex]);
+
   return (
-    <Layout>
+    <WelcomeLayout>
       <h1 className='text-center text-3xl font-bold'>
         Enter your personal information
       </h1>
@@ -108,7 +123,12 @@ export default function Personal() {
           <div className='mt-2 flex items-center justify-start gap-5 rounded'>
             <label className='text-lg'>Age:</label>
             <input
-              {...register('age')}
+              {...register('age', {
+                onChange(event) {
+                  setPersonal({ ...personal, age: event.target.value });
+                },
+              })}
+              value={personal?.age}
               min={0}
               type='number'
               className={`${
@@ -128,7 +148,7 @@ export default function Personal() {
                   className='h-7 w-7 cursor-pointer appearance-none rounded-full border border-[#eaeaea] bg-white checked:cursor-default checked:border-transparent checked:bg-emerald-300'
                   type='radio'
                   value='m'
-                  checked={sex === 'm'}
+                  checked={personal.sex === 'm'}
                   onChange={() => setSex('m')}
                 />
                 {sex === 'm' && (
@@ -156,7 +176,7 @@ export default function Personal() {
                   className='h-7 w-7 cursor-pointer appearance-none rounded-full border border-[#eaeaea] bg-white checked:cursor-default checked:border-transparent checked:bg-emerald-300'
                   type='radio'
                   value='f'
-                  checked={sex === 'f'}
+                  checked={personal.sex === 'f'}
                   onChange={() => setSex('f')}
                 />
                 {sex === 'f' && (
@@ -184,7 +204,12 @@ export default function Personal() {
           <div className='mt-2 flex items-center justify-start gap-5 rounded'>
             <label className='text-lg'>Weight:</label>
             <input
-              {...register('weight')}
+              {...register('weight', {
+                onChange(event) {
+                  setPersonal({ ...personal, weight: event.target.value });
+                },
+              })}
+              value={personal.weight}
               min={0}
               type='number'
               className={`${
@@ -199,7 +224,12 @@ export default function Personal() {
           <div className='mt-2 flex items-center justify-start gap-5 rounded'>
             <label className='text-lg'>Height:</label>
             <input
-              {...register('height')}
+              {...register('height', {
+                onChange(event) {
+                  setPersonal({ ...personal, height: event.target.value });
+                },
+              })}
+              value={personal.height}
               min={0}
               type='number'
               className={`${
@@ -223,7 +253,7 @@ export default function Personal() {
               }`}
             >
               <button type='button' className='flex w-full justify-between'>
-                <span>{activity}</span>
+                <span>{personal ? personal.activity : activity}</span>
                 <svg
                   className={`relative top-[8px] ${
                     opened ? 'rotate-180' : ''
@@ -247,6 +277,7 @@ export default function Personal() {
                       onClick={() => {
                         setValue('activity', option);
                         setActivity(option);
+                        setPersonal({ ...personal, activity: option });
                       }}
                       className='cursor-pointer bg-neutral-100 p-2 hover:bg-neutral-200'
                       key={index}
@@ -268,6 +299,6 @@ export default function Personal() {
           <span className='ml-3 text-lg'>🚀</span>
         </button>
       </form>
-    </Layout>
+    </WelcomeLayout>
   );
 }

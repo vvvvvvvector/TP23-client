@@ -2,6 +2,7 @@ import { FC, createContext, useState } from 'react';
 
 interface IPassword {
   password: string;
+  confirm: string;
 }
 
 export type PasswordContextStateType = [
@@ -20,6 +21,7 @@ interface PasswordProviderProps {
 const PasswordProvider: FC<PasswordProviderProps> = ({ children }) => {
   const [password, setPassword] = useState({
     password: '',
+    confirm: '',
   });
 
   return (
