@@ -1,5 +1,6 @@
-import { useRouter } from 'next/router';
 import { FC } from 'react';
+
+import { useRouter } from 'next/router';
 
 interface WelcomeLayoutProps {
   children: React.ReactNode;

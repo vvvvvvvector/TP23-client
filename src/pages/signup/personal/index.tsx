@@ -1,11 +1,11 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useContext } from 'react';
 import { toast } from 'react-hot-toast';
 import { useForm, FieldValues } from 'react-hook-form';
 
+import { useRouter } from 'next/router';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-
-import { useContext } from 'react';
 
 import { PasswordContext } from '@/providers/PasswordProvider';
 import { PasswordContextStateType } from '@/providers/PasswordProvider';
@@ -29,6 +29,8 @@ const personalValidationSchema = z.object({
 });
 
 export default function Personal() {
+  const router = useRouter();
+
   const selectRef = useRef<HTMLDivElement>(null);
 
   const [opened, setOpened] = useState(false);
@@ -79,9 +81,9 @@ export default function Personal() {
       },
     };
 
-    console.log(user);
-
     toast.success(<pre>{JSON.stringify(user, null, 2)}</pre>);
+
+    router.push(`/${user.username}/calories`);
   };
 
   useEffect(() => {
