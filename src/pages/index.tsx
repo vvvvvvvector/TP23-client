@@ -6,15 +6,18 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
 import WelcomeLayout from '@/components/WelcomeLayout';
+import { useRouter } from 'next/router';
 
 const signInValidationSchema = z.object({
-  emailOrUsername: z.string().nonempty({
-    message: 'Email or username is required.',
+  username: z.string().nonempty({
+    message: 'Username is required.',
   }),
   password: z.string().nonempty({ message: 'Password is required.' }),
 });
 
 export default function Welcome() {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -27,6 +30,7 @@ export default function Welcome() {
 
   const onSubmit = (data: FieldValues) => {
     toast.success(<pre>{JSON.stringify(data, null, 2)}</pre>);
+    router.push(`/${data.username}/calories`);
   };
 
   return (
@@ -37,21 +41,17 @@ export default function Welcome() {
         className='flex w-[87%] flex-col gap-5 rounded-2xl border border-[#eaeaea] bg-[#fafafa] px-8 py-5 shadow-sm'
       >
         <div className='block'>
-          <label className='text-lg'>Username or email address</label>
+          <label className='text-lg'>Username</label>
           <input
-            {...register('emailOrUsername')}
+            {...register('username')}
             spellCheck={false}
             type='text'
             className={`${
-              errors.emailOrUsername
-                ? 'border-pink-400'
-                : 'focus:border-emerald-300'
+              errors.username ? 'border-pink-400' : 'focus:border-emerald-300'
             } mt-2 w-full rounded border border-[#eaeaea] bg-none p-3`}
-            placeholder='example@mail.io'
+            placeholder='your username my guy'
           />
-          {errors.emailOrUsername && (
-            <p className='mt-3'>{errors.emailOrUsername.message}</p>
-          )}
+          {errors.username && <p className='mt-3'>{errors.username.message}</p>}
         </div>
         <div className='block'>
           <label className='text-lg'>Password</label>

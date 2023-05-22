@@ -1,5 +1,6 @@
-import { useRouter } from 'next/router';
 import { FC } from 'react';
+
+import { useRouter } from 'next/router';
 
 interface WelcomeLayoutProps {
   children: React.ReactNode;
@@ -19,7 +20,7 @@ const Stepper = () => {
             1
           </button>
           <div
-            className={`h-[2px] w-full max-w-[170px] ${
+            className={`h-[2px] w-[170px] max-[560px]:w-[90px] ${
               router.asPath === '/signup/password' ||
               router.asPath === '/signup/personal'
                 ? 'bg-emerald-300'
@@ -34,7 +35,7 @@ const Stepper = () => {
             2
           </button>
           <div
-            className={`h-[2px] w-full max-w-[170px] ${
+            className={`h-[2px] w-[170px] max-[560px]:w-[90px] ${
               router.asPath === '/signup/personal'
                 ? 'bg-emerald-300'
                 : 'bg-gray-300'
