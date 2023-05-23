@@ -3,14 +3,14 @@ import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 const caloriesNorm = 1800;
 
 const calories = [
-  { name: 'Calories (kkal)', value: 1200 },
+  { name: 'Calories (kkal)', value: 1800 },
   { name: 'Remained (kkal)', value: caloriesNorm - 1200 },
 ];
 
 const CaloriesPie = () => {
   return (
     <div className='text-center'>
-      <span>Calories</span>
+      <span>{'Calories (kkal)'}</span>
       <PieChart width={260} height={260}>
         <Pie
           dataKey='value'
@@ -24,7 +24,7 @@ const CaloriesPie = () => {
           label
         >
           <Cell fill='#86efac' />
-          <Cell fill='#bfdbfe' />
+          <Cell fill='#fca5a5' />
         </Pie>
         <Tooltip />
       </PieChart>

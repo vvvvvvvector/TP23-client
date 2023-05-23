@@ -10,7 +10,7 @@ const carbohydrates = [
 const CarbohydratesPie = () => {
   return (
     <div className='text-center'>
-      <span>Carbohydrates</span>
+      <span>{'Carbohydrates (g)'}</span>
       <PieChart width={260} height={260}>
         <Pie
           dataKey='value'
@@ -24,7 +24,7 @@ const CarbohydratesPie = () => {
           label
         >
           <Cell fill='#86efac' />
-          <Cell fill='#bfdbfe' />
+          <Cell fill='#fca5a5' />
         </Pie>
         <Tooltip />
       </PieChart>

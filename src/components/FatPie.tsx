@@ -10,7 +10,7 @@ const fat = [
 const FatPie = () => {
   return (
     <div className='text-center'>
-      <span>Fat</span>
+      <span>{'Fat (g)'}</span>
       <PieChart width={260} height={260}>
         <Pie
           dataKey='value'
@@ -24,7 +24,7 @@ const FatPie = () => {
           label
         >
           <Cell fill='#86efac' />
-          <Cell fill='#bfdbfe' />
+          <Cell fill='#fca5a5' />
         </Pie>
         <Tooltip />
       </PieChart>

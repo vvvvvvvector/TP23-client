@@ -10,7 +10,7 @@ const protein = [
 const ProteinPie = () => {
   return (
     <div className='text-center'>
-      <span>Protein</span>
+      <span>{'Protein (g)'}</span>
       <PieChart width={260} height={260}>
         <Pie
           dataKey='value'
@@ -24,7 +24,7 @@ const ProteinPie = () => {
           label
         >
           <Cell fill='#86efac' />
-          <Cell fill='#bfdbfe' />
+          <Cell fill='#fca5a5' />
         </Pie>
         <Tooltip />
       </PieChart>

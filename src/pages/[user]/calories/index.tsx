@@ -22,15 +22,22 @@ import HomeLayout from '@/layouts/Home';
 export default function Calories() {
   return (
     <HomeLayout>
-      <div className='flex flex-col items-center justify-start'>
+      <div className='flex flex-col items-center justify-start gap-3'>
         <div>
-          <h3 className='text-center text-2xl'>Today's progress</h3>
+          <h3 className='text-center text-2xl font-semibold'>
+            Today's progress
+          </h3>
           <div className='mt-11 flex'>
             <DynamicCaloriesPie />
             <DynamicFatPie />
             <DynamicProteinPie />
             <DynamicCarbohydratesPie />
           </div>
+        </div>
+        <div>
+          <h3 className='text-center text-2xl font-semibold'>
+            Statistics for the week
+          </h3>
         </div>
       </div>
     </HomeLayout>
