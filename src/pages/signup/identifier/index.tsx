@@ -9,7 +9,7 @@ import { z } from 'zod';
 import { IndetifierContext } from '@/providers/IdentifierProvider';
 import { IndetifierContextStateType } from '@/providers/IdentifierProvider';
 
-import WelcomeLayout from '@/components/WelcomeLayout';
+import WelcomeLayout from '@/layouts/Welcome';
 
 const identifierValidationSchema = z.object({
   email: z

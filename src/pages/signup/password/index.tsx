@@ -8,7 +8,7 @@ import { useContext } from 'react';
 import { PasswordContext } from '@/providers/PasswordProvider';
 import { PasswordContextStateType } from '@/providers/PasswordProvider';
 
-import WelcomeLayout from '@/components/WelcomeLayout';
+import WelcomeLayout from '@/layouts/Welcome';
 
 const passwordValidationSchema = z
   .object({

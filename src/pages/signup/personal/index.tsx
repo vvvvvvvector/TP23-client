@@ -16,7 +16,7 @@ import { IndetifierContextStateType } from '@/providers/IdentifierProvider';
 import { PersonalContext } from '@/providers/PersonalProvider';
 import { PersonalContextStateType } from '@/providers/PersonalProvider';
 
-import WelcomeLayout from '@/components/WelcomeLayout';
+import WelcomeLayout from '@/layouts/Welcome';
 
 const options = ['minimal', 'weak', 'medium', 'high', 'extra activity'];
 
