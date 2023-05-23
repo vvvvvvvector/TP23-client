@@ -1,27 +1,31 @@
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 
-const proteinNorm = 60;
+const fatCurrent = 30;
+const fatNorm = 54;
 
-const protein = [
-  { name: 'Protein (g)', value: 6 },
-  { name: 'Remained (g)', value: proteinNorm - 6 },
+const fat = [
+  { name: 'Received (g)', value: fatCurrent },
+  { name: 'Remained (g)', value: fatNorm - fatCurrent },
 ];
 
-const ProteinPie = () => {
+const FatPie = () => {
   return (
     <div className='text-center'>
-      <span>{'Protein (g)'}</span>
+      <span>{'Fat (g)'}</span>
       <PieChart width={260} height={260}>
         <Pie
           dataKey='value'
           startAngle={90}
           endAngle={-270}
-          data={protein}
+          data={fat}
           cx='50%'
           cy='50%'
+          animationDuration={1000}
+          innerRadius={60}
           outerRadius={80}
           fill='#8884d8'
           label
+          labelLine={false}
         >
           <Cell fill='#86efac' />
           <Cell fill='#fca5a5' />
@@ -32,4 +36,4 @@ const ProteinPie = () => {
   );
 };
 
-export default ProteinPie;
+export default FatPie;
