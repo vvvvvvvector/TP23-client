@@ -19,15 +19,9 @@ const Home: FC<HomeProps> = ({ children }) => {
 
   return (
     <section className='flex h-full w-full bg-white'>
-      <div className='grid h-full w-[24%] place-items-center border-r border-[#D9D9D9] bg-[#F7F6F6] p-12'>
-        <div className='flex w-full items-center justify-between'>
-          <div
-            className='flex items-center justify-center rounded-full bg-gray-400 font-mono font-bold text-gray-700'
-            style={{
-              height: '56px',
-              width: '56px',
-            }}
-          >
+      <div className='grid h-full w-[24%] place-items-center border-r border-[#D9D9D9] bg-[#F7F6F6] px-12 max-[720px]:p-5 max-[475px]:w-[30%]'>
+        <div className='flex w-full items-center justify-between max-[1000px]:flex-col max-[1000px]:gap-5'>
+          <div className='flex h-[56px] w-[56px] items-center justify-center rounded-full bg-gray-400 font-mono font-bold text-gray-700'>
             img
           </div>
           <span>{router.query.user}</span>
@@ -35,38 +29,38 @@ const Home: FC<HomeProps> = ({ children }) => {
         <div className='flex w-full flex-col gap-10'>
           <button
             onClick={() => router.push(`/${router.query.user}/calories`)}
-            className='flex h-[50px] items-center justify-between rounded-lg bg-violet-300 px-7 transition-[background-color] hover:bg-violet-400'
+            className='flex h-[50px] items-center justify-between rounded-lg border-b-2 border-b-violet-500 bg-violet-200 px-7 transition-[background-color] hover:bg-violet-300 max-[1000px]:justify-center max-[550px]:px-0'
           >
             <CaloriesSvg className='text-[#1E293B]' />
-            <span className='font-medium'>Calories</span>
+            <span className='font-medium max-[1000px]:hidden'>Calories</span>
           </button>
           <button
             onClick={() => router.push(`/${router.query.user}/fridge`)}
-            className='flex h-[50px] items-center justify-between rounded-lg bg-violet-300 px-7 transition-[background-color] hover:bg-violet-400'
+            className='flex h-[50px] items-center justify-between rounded-lg border-b-2 border-b-violet-500 bg-violet-200 px-7 transition-[background-color] hover:bg-violet-300 max-[1000px]:justify-center max-[550px]:px-0'
           >
             <FridgeSvg className='text-[#1E293B]' />
-            <span className='font-medium'>Fridge</span>
+            <span className='font-medium max-[1000px]:hidden'>Fridge</span>
           </button>
           <button
             onClick={() => router.push(`/${router.query.user}/recipes`)}
-            className='flex h-[50px] items-center justify-between rounded-lg bg-violet-300 px-7 transition-[background-color] hover:bg-violet-400'
+            className='flex h-[50px] items-center justify-between rounded-lg border-b-2 border-b-violet-500 bg-violet-200 px-7 transition-[background-color] hover:bg-violet-300 max-[1000px]:justify-center max-[550px]:px-0'
           >
             <RecipesSvg className='text-[#1E293B]' />
-            <span className='font-medium'>Recipes</span>
+            <span className='font-medium max-[1000px]:hidden'>Recipes</span>
           </button>
           <button
             onClick={() => router.push(`/${router.query.user}/finances`)}
-            className='flex h-[50px] items-center justify-between rounded-lg bg-violet-300 px-7 transition-[background-color] hover:bg-violet-400'
+            className='flex h-[50px] items-center justify-between rounded-lg border-b-2 border-b-violet-500 bg-violet-200 px-7 transition-[background-color] hover:bg-violet-300 max-[1000px]:justify-center max-[550px]:px-0'
           >
             <FinancesSvg className='text-[#1E293B]' />
-            <span className='font-medium'>Finances</span>
+            <span className='font-medium max-[1000px]:hidden'>Finances</span>
           </button>
           <button
             onClick={() => router.push(`/${router.query.user}`)}
-            className='flex h-[50px] items-center justify-between rounded-lg bg-violet-300 px-7 transition-[background-color] hover:bg-violet-400'
+            className='flex h-[50px] items-center justify-between rounded-lg border-b-2 border-b-violet-500 bg-violet-200 px-7 transition-[background-color] hover:bg-violet-300 max-[1000px]:justify-center max-[550px]:px-0'
           >
             <AccountSvg className='text-[#1E293B]' />
-            <span className='font-medium'>Account</span>
+            <span className='font-medium max-[1000px]:hidden'>Account</span>
           </button>
         </div>
         <button
@@ -78,7 +72,7 @@ const Home: FC<HomeProps> = ({ children }) => {
               toast.success('Signed out successfully!');
             }
           }}
-          className='h-[40px] w-full rounded-lg bg-red-100 font-bold transition-[background-color] hover:bg-red-300'
+          className='h-[50px] w-full rounded-lg border-b-2 border-b-red-400 bg-red-100 font-bold transition-[background-color] hover:bg-red-300'
         >
           <span className='font-medium'>Sign out</span>
         </button>
