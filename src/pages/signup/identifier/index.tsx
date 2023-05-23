@@ -21,7 +21,8 @@ const identifierValidationSchema = z.object({
   username: z
     .string()
     .nonempty({ message: 'Username is required.' })
-    .min(5, { message: 'Username must be at least 5 characters long.' }),
+    .min(5, { message: 'Username must be at least 5 characters long.' })
+    .max(19, { message: 'Username is too long.' }),
 });
 
 export default function Identifier() {

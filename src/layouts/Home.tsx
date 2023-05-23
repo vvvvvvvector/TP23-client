@@ -2,6 +2,13 @@ import { FC } from 'react';
 import { toast } from 'react-hot-toast';
 
 import { useRouter } from 'next/router';
+import {
+  AccountSvg,
+  CaloriesSvg,
+  FinancesSvg,
+  FridgeSvg,
+  RecipesSvg,
+} from '@/assets/svgs';
 
 interface HomeProps {
   children: React.ReactNode;
@@ -13,7 +20,7 @@ const Home: FC<HomeProps> = ({ children }) => {
   return (
     <section className='flex h-full w-full bg-white'>
       <div className='grid h-full w-[24%] place-items-center border-r border-[#D9D9D9] bg-[#F7F6F6] p-12'>
-        <div className='flex w-full items-center justify-around'>
+        <div className='flex w-full items-center justify-between'>
           <div
             className='flex items-center justify-center rounded-full bg-gray-400 font-mono font-bold text-gray-700'
             style={{
@@ -28,33 +35,38 @@ const Home: FC<HomeProps> = ({ children }) => {
         <div className='flex w-full flex-col gap-10'>
           <button
             onClick={() => router.push(`/${router.query.user}/calories`)}
-            className='flex h-[45px] items-center justify-center gap-3 rounded-lg bg-violet-300 transition-[background-color] hover:bg-violet-400'
+            className='flex h-[50px] items-center justify-between rounded-lg bg-violet-300 px-7 transition-[background-color] hover:bg-violet-400'
           >
-            <span className='font-bold'>Calories</span>
+            <CaloriesSvg className='text-[#1E293B]' />
+            <span className='font-medium'>Calories</span>
           </button>
           <button
             onClick={() => router.push(`/${router.query.user}/fridge`)}
-            className='flex h-[45px] items-center justify-center gap-3 rounded-lg bg-violet-300 transition-[background-color] hover:bg-violet-400'
+            className='flex h-[50px] items-center justify-between rounded-lg bg-violet-300 px-7 transition-[background-color] hover:bg-violet-400'
           >
-            <span className='font-bold'>Fridge</span>
+            <FridgeSvg className='text-[#1E293B]' />
+            <span className='font-medium'>Fridge</span>
           </button>
           <button
             onClick={() => router.push(`/${router.query.user}/recipes`)}
-            className='flex h-[45px] items-center justify-center gap-3 rounded-lg bg-violet-300 transition-[background-color] hover:bg-violet-400'
+            className='flex h-[50px] items-center justify-between rounded-lg bg-violet-300 px-7 transition-[background-color] hover:bg-violet-400'
           >
-            <span className='font-bold'>Recipes</span>
+            <RecipesSvg className='text-[#1E293B]' />
+            <span className='font-medium'>Recipes</span>
           </button>
           <button
-            onClick={() => router.push(`/${router.query.user}/products`)}
-            className='flex h-[45px] items-center justify-center gap-3 rounded-lg bg-violet-300 transition-[background-color] hover:bg-violet-400'
+            onClick={() => router.push(`/${router.query.user}/finances`)}
+            className='flex h-[50px] items-center justify-between rounded-lg bg-violet-300 px-7 transition-[background-color] hover:bg-violet-400'
           >
-            <span className='font-bold'>Products</span>
+            <FinancesSvg className='text-[#1E293B]' />
+            <span className='font-medium'>Finances</span>
           </button>
           <button
             onClick={() => router.push(`/${router.query.user}`)}
-            className='flex h-[45px] items-center justify-center gap-3 rounded-lg bg-violet-300 transition-[background-color] hover:bg-violet-400'
+            className='flex h-[50px] items-center justify-between rounded-lg bg-violet-300 px-7 transition-[background-color] hover:bg-violet-400'
           >
-            <span className='font-bold'>Account</span>
+            <AccountSvg className='text-[#1E293B]' />
+            <span className='font-medium'>Account</span>
           </button>
         </div>
         <button
@@ -66,9 +78,9 @@ const Home: FC<HomeProps> = ({ children }) => {
               toast.success('Signed out successfully!');
             }
           }}
-          className='h-[45px] w-full rounded-lg bg-red-200 font-bold transition-[background-color] hover:bg-red-300'
+          className='h-[40px] w-full rounded-lg bg-red-100 font-bold transition-[background-color] hover:bg-red-300'
         >
-          <span className='font-bold'>Sign out</span>
+          <span className='font-medium'>Sign out</span>
         </button>
       </div>
       <div className='grid h-full flex-1 place-items-center'>{children}</div>
