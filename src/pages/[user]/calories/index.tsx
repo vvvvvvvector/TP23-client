@@ -1,19 +1,22 @@
 import dynamic from 'next/dynamic';
 
-const DynamicCaloriesPie = dynamic(() => import('@/components/CaloriesPie'), {
+const DynamicCaloriesDonut = dynamic(
+  () => import('@/components/CaloriesDonut'),
+  {
+    ssr: false,
+  }
+);
+
+const DynamicFatDonut = dynamic(() => import('@/components/FatDonut'), {
   ssr: false,
 });
 
-const DynamicFatPie = dynamic(() => import('@/components/FatPie'), {
+const DynamicProteinDonut = dynamic(() => import('@/components/ProteinDonut'), {
   ssr: false,
 });
 
-const DynamicProteinPie = dynamic(() => import('@/components/ProteinPie'), {
-  ssr: false,
-});
-
-const DynamicCarbohydratesPie = dynamic(
-  () => import('@/components/CarbohydratesPie'),
+const DynamicCarbohydratesDonut = dynamic(
+  () => import('@/components/CarbohydratesDonut'),
   { ssr: false }
 );
 
@@ -28,10 +31,10 @@ export default function Calories() {
             Today's progress
           </h3>
           <div className='mt-11 flex'>
-            <DynamicCaloriesPie />
-            <DynamicFatPie />
-            <DynamicProteinPie />
-            <DynamicCarbohydratesPie />
+            <DynamicCaloriesDonut />
+            <DynamicFatDonut />
+            <DynamicProteinDonut />
+            <DynamicCarbohydratesDonut />
           </div>
         </div>
         <div>
