@@ -1,4 +1,4 @@
-import HomeLayout from '@/components/HomeLayout';
+import HomeLayout from '@/layouts/Home';
 
 export default function Calories() {
   return <HomeLayout>Calories</HomeLayout>;

@@ -2,11 +2,12 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useForm, FieldValues } from 'react-hook-form';
 
+import { useRouter } from 'next/router';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
-import WelcomeLayout from '@/components/WelcomeLayout';
-import { useRouter } from 'next/router';
+import WelcomeLayout from '@/layouts/Welcome';
 
 const signInValidationSchema = z.object({
   username: z.string().nonempty({
@@ -31,6 +32,7 @@ export default function Welcome() {
   const onSubmit = (data: FieldValues) => {
     toast.success(<pre>{JSON.stringify(data, null, 2)}</pre>);
     router.push(`/${data.username}/calories`);
+    toast.success(`Signed in successfully!`);
   };
 
   return (

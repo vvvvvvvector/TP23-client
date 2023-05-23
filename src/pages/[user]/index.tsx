@@ -1,5 +1,5 @@
-import HomeLayout from '@/components/HomeLayout';
+import HomeLayout from '@/layouts/Home';
 
 export default function Account() {
-  return <HomeLayout>User acccount info</HomeLayout>;
+  return <HomeLayout>User account setting</HomeLayout>;
 }

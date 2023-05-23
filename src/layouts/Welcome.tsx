@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { useRouter } from 'next/router';
 
-interface WelcomeLayoutProps {
+interface WelcomeProps {
   children: React.ReactNode;
 }
 
@@ -57,7 +57,7 @@ const Stepper = () => {
   );
 };
 
-const WelcomeLayout: FC<WelcomeLayoutProps> = ({ children }) => {
+const Welcome: FC<WelcomeProps> = ({ children }) => {
   const router = useRouter();
 
   return (
@@ -89,4 +89,4 @@ const WelcomeLayout: FC<WelcomeLayoutProps> = ({ children }) => {
   );
 };
 
-export default WelcomeLayout;
+export default Welcome;

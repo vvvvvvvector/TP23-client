@@ -9,7 +9,7 @@ import { z } from 'zod';
 import { IndetifierContext } from '@/providers/IdentifierProvider';
 import { IndetifierContextStateType } from '@/providers/IdentifierProvider';
 
-import WelcomeLayout from '@/components/WelcomeLayout';
+import WelcomeLayout from '@/layouts/Welcome';
 
 const identifierValidationSchema = z.object({
   email: z
@@ -21,7 +21,8 @@ const identifierValidationSchema = z.object({
   username: z
     .string()
     .nonempty({ message: 'Username is required.' })
-    .min(5, { message: 'Username must be at least 5 characters long.' }),
+    .min(5, { message: 'Username must be at least 5 characters long.' })
+    .max(19, { message: 'Username is too long.' }),
 });
 
 export default function Identifier() {
