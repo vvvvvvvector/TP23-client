@@ -19,7 +19,7 @@ const Home: FC<HomeProps> = ({ children }) => {
 
   return (
     <section className='flex h-full w-full bg-white'>
-      <div className='grid h-full w-[24%] place-items-center border-r border-[#D9D9D9] bg-[#F7F6F6] px-12 max-[720px]:p-5 max-[475px]:w-[30%]'>
+      <div className='grid h-full w-[22%] place-items-center border-r border-[#D9D9D9] bg-[#F7F6F6] px-12 max-[720px]:p-5 max-[475px]:w-[30%]'>
         <div className='flex w-full items-center justify-between max-[1000px]:flex-col max-[1000px]:gap-5'>
           <div className='flex h-[56px] w-[56px] items-center justify-center rounded-full bg-gray-400 font-mono font-bold text-gray-700'>
             img
@@ -77,7 +77,7 @@ const Home: FC<HomeProps> = ({ children }) => {
           <span className='font-medium'>Sign out</span>
         </button>
       </div>
-      <div className='grid h-full flex-1 place-items-center'>{children}</div>
+      <div className='h-full flex-1 px-10 py-5'>{children}</div>
     </section>
   );
 };
