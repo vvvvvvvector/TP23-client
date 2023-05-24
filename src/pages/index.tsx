@@ -4,6 +4,8 @@ import { useForm, FieldValues } from 'react-hook-form';
 
 import { useRouter } from 'next/router';
 
+import { signIn } from 'next-auth/react';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
@@ -29,10 +31,19 @@ export default function Welcome() {
 
   const [hiddenPassword, setHiddenPassword] = useState(true);
 
-  const onSubmit = (data: FieldValues) => {
-    toast.success(<pre>{JSON.stringify(data, null, 2)}</pre>);
-    router.push(`/${data.username}/calories`);
-    toast.success(`Signed in successfully!`);
+  const onSubmit = async (data: FieldValues) => {
+    const result = await signIn('credentials', {
+      username: data.username,
+      password: data.password,
+      redirect: false,
+    });
+
+    if (result?.ok) {
+      router.push(`/${data.username}/calories`);
+      toast.success(`Signed in successfully!`);
+    } else {
+      toast.error(`Wrong username or password.`);
+    }
   };
 
   return (

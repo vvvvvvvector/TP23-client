@@ -1,22 +1,27 @@
 import dynamic from 'next/dynamic';
 
+import { useSession } from 'next-auth/react';
+
 const DynamicCaloriesDonut = dynamic(
-  () => import('@/components/CaloriesDonut'),
+  () => import('@/components/Donuts/Calories'),
   {
     ssr: false,
   }
 );
 
-const DynamicFatDonut = dynamic(() => import('@/components/FatDonut'), {
+const DynamicFatDonut = dynamic(() => import('@/components/Donuts/Fat'), {
   ssr: false,
 });
 
-const DynamicProteinDonut = dynamic(() => import('@/components/ProteinDonut'), {
-  ssr: false,
-});
+const DynamicProteinDonut = dynamic(
+  () => import('@/components/Donuts/Protein'),
+  {
+    ssr: false,
+  }
+);
 
 const DynamicCarbohydratesDonut = dynamic(
-  () => import('@/components/CarbohydratesDonut'),
+  () => import('@/components/Donuts/Carbohydrates'),
   { ssr: false }
 );
 
@@ -27,6 +32,10 @@ const DynamicWeekBarChart = dynamic(() => import('@/components/WeekBarChart'), {
 import HomeLayout from '@/layouts/Home';
 
 export default function Calories() {
+  const { data } = useSession();
+
+  console.log(data);
+
   return (
     <HomeLayout>
       <div className='flex flex-col items-center justify-start gap-8'>

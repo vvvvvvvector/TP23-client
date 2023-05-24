@@ -2,6 +2,9 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { Rubik } from 'next/font/google';
 
+import { Session } from 'next-auth';
+import { SessionProvider } from 'next-auth/react';
+
 import { Toaster } from 'react-hot-toast';
 
 import SignUpProvider from '@/providers/SignUpProvider';
@@ -13,21 +16,28 @@ const rubik = Rubik({
   weight: ['300', '400', '500', '700', '900'],
 });
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({
+  Component,
+  pageProps,
+}: AppProps<{
+  session: Session;
+}>) {
   const title = 'TP23 🎉';
+
+  const mainstyle = `${rubik.className} grid h-full w-full place-items-center`;
 
   return (
     <>
       <Head>
         <title>{title}</title>
       </Head>
-      <main
-        className={`${rubik.className} grid h-full w-full place-items-center`}
-      >
-        <SignUpProvider>
-          <Component {...pageProps} />
-        </SignUpProvider>
-        <Toaster position='top-center' />
+      <main className={mainstyle}>
+        <SessionProvider session={pageProps.session}>
+          <SignUpProvider>
+            <Component {...pageProps} />
+          </SignUpProvider>
+          <Toaster position='top-center' />
+        </SessionProvider>
       </main>
     </>
   );

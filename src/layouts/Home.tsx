@@ -1,6 +1,8 @@
 import { FC } from 'react';
 import { toast } from 'react-hot-toast';
 
+import { signOut } from 'next-auth/react';
+
 import { useRouter } from 'next/router';
 import {
   AccountSvg,
@@ -69,6 +71,9 @@ const Home: FC<HomeProps> = ({ children }) => {
 
             if (result) {
               router.push('/');
+
+              // signOut();
+
               toast.success('Signed out successfully!');
             }
           }}
