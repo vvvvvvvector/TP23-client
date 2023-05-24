@@ -41,7 +41,7 @@ const data = [
 const WeekBarChart = () => {
   return (
     <BarChart
-      width={500}
+      width={750}
       height={350}
       data={data}
       margin={{
@@ -53,7 +53,7 @@ const WeekBarChart = () => {
       <XAxis dataKey='shortName' />
       <YAxis />
       <Tooltip />
-      <Bar dataKey='data' unit=' kkal' name='Calories' fill='#8884d8' />
+      <Bar dataKey='data' unit=' kkal' name='Calories' fill='#93c5fd' />
     </BarChart>
   );
 };
