@@ -20,17 +20,21 @@ const DynamicCarbohydratesDonut = dynamic(
   { ssr: false }
 );
 
+const DynamicWeekBarChart = dynamic(() => import('@/components/WeekBarChart'), {
+  ssr: false,
+});
+
 import HomeLayout from '@/layouts/Home';
 
 export default function Calories() {
   return (
     <HomeLayout>
-      <div className='flex flex-col items-center justify-start gap-3'>
+      <div className='flex flex-col items-center justify-start gap-8'>
         <div>
           <h3 className='text-center text-2xl font-semibold'>
             Today's progress
           </h3>
-          <div className='mt-11 flex'>
+          <div className='mt-[25px] flex'>
             <DynamicCaloriesDonut />
             <DynamicFatDonut />
             <DynamicProteinDonut />
@@ -41,6 +45,13 @@ export default function Calories() {
           <h3 className='text-center text-2xl font-semibold'>
             Statistics for the week
           </h3>
+          <DynamicWeekBarChart />
+        </div>
+        <div>
+          <h3 className='text-center text-2xl font-semibold'>
+            Statistics for the month
+          </h3>
+          <DynamicWeekBarChart />
         </div>
       </div>
     </HomeLayout>
