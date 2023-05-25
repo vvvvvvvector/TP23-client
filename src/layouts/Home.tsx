@@ -1,6 +1,8 @@
 import { FC } from 'react';
 import { toast } from 'react-hot-toast';
 
+import { signOut } from 'next-auth/react';
+
 import { useRouter } from 'next/router';
 import {
   AccountSvg,
@@ -68,7 +70,12 @@ const Home: FC<HomeProps> = ({ children }) => {
             const result = window.confirm('Are you sure you want to sign out?');
 
             if (result) {
+              signOut({
+                redirect: false,
+              });
+
               router.push('/');
+
               toast.success('Signed out successfully!');
             }
           }}
