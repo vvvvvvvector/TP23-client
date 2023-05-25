@@ -1,5 +1,21 @@
 import HomeLayout from '@/layouts/Home';
 
+import { useSession } from 'next-auth/react';
+
 export default function Account() {
-  return <HomeLayout>User account setting</HomeLayout>;
+  const { data: session } = useSession();
+
+  return (
+    <HomeLayout>
+      Signed in user account info:
+      <p>{`email: ${session?.user.user.email}`}</p>
+      <p>{`username: ${session?.user.user.username}`}</p>
+      <p>{`age: ${session?.user.user.age}`}</p>
+      <p>{`activity_level: ${session?.user.user.activity_level}`}</p>
+      <p>{`id: ${session?.user.user.user_id}`}</p>
+      <p>{`height: ${session?.user.user.height}`}</p>
+      <p>{`weight: ${session?.user.user.weight}`}</p>
+      <p>{`img_url: ${session?.user.user.img_url}`}</p>
+    </HomeLayout>
+  );
 }

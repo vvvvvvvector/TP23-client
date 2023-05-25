@@ -40,6 +40,7 @@ export default function Welcome() {
 
     if (result?.ok) {
       router.push(`/${data.username}/calories`);
+
       toast.success(`Signed in successfully!`);
     } else {
       toast.error(`Wrong username or password.`);

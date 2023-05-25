@@ -70,9 +70,11 @@ const Home: FC<HomeProps> = ({ children }) => {
             const result = window.confirm('Are you sure you want to sign out?');
 
             if (result) {
-              router.push('/');
+              signOut({
+                redirect: false,
+              });
 
-              // signOut();
+              router.push('/');
 
               toast.success('Signed out successfully!');
             }

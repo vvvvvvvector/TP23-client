@@ -1,7 +1,5 @@
 import dynamic from 'next/dynamic';
 
-import { useSession } from 'next-auth/react';
-
 const DynamicCaloriesDonut = dynamic(
   () => import('@/components/Donuts/Calories'),
   {
@@ -32,10 +30,6 @@ const DynamicWeekBarChart = dynamic(() => import('@/components/WeekBarChart'), {
 import HomeLayout from '@/layouts/Home';
 
 export default function Calories() {
-  const { data } = useSession();
-
-  console.log(data);
-
   return (
     <HomeLayout>
       <div className='flex flex-col items-center justify-start gap-8'>
