@@ -3,7 +3,15 @@ import HomeLayout from '@/layouts/Home';
 import { useSession } from 'next-auth/react';
 
 export default function Account() {
-  const { data: session } = useSession();
+  const { data: session } = useSession({ required: false });
+
+  if (!session) {
+    return (
+      <HomeLayout>
+        <span>You aren't signed in!</span>
+      </HomeLayout>
+    );
+  }
 
   return (
     <HomeLayout>

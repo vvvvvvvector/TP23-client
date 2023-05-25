@@ -31,14 +31,14 @@ export default function App({
       <Head>
         <title>{title}</title>
       </Head>
-      <main className={mainstyle}>
-        <SessionProvider session={pageProps.session}>
-          <SignUpProvider>
+      <SessionProvider session={pageProps.session}>
+        <SignUpProvider>
+          <main className={mainstyle}>
             <Component {...pageProps} />
-          </SignUpProvider>
-          <Toaster position='top-center' />
-        </SessionProvider>
-      </main>
+            <Toaster position='top-center' />
+          </main>
+        </SignUpProvider>
+      </SessionProvider>
     </>
   );
 }
