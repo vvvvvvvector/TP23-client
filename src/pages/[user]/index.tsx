@@ -18,7 +18,7 @@ export default function Account() {
   return (
     <HomeLayout>
       Signed in user account info:
-      <p>{`what is it: ${session.user?.user.email}`}</p>
+      <p>{`what is it: ${session.user.user.email}`}</p>
       {/* <p>{`email: ${session.user?.user.email}`}</p> */}
       {/* <p>{`username: ${session.user?.user.username}`}</p> */}
       {/* <p>{`age: ${session.user?.user.age}`}</p> */}
