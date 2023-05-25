@@ -5,16 +5,16 @@ declare module 'next-auth' {
     expires: string;
     user: {
       token: string;
-      user: {
-        user_id: number;
+      data: {
+        id: number;
         username: string;
         email: string;
         height: number;
         weight: number;
         sex: string;
         age: number;
-        activity_level: string;
-        img_url: string;
+        activity: string;
+        imgUrl: string;
       };
     };
   }
