@@ -32,6 +32,8 @@ export default function Welcome() {
   const [hiddenPassword, setHiddenPassword] = useState(true);
 
   const onSubmit = async (data: FieldValues) => {
+    const id = toast.loading('Signing in...');
+
     const result = await signIn('credentials', {
       username: data.username,
       password: data.password,
@@ -41,9 +43,9 @@ export default function Welcome() {
     if (result?.ok) {
       router.push(`/${data.username}/calories`);
 
-      toast.success(`Signed in successfully!`);
+      toast.success('Signed in successfully.', { id });
     } else {
-      toast.error(`Wrong username or password.`);
+      toast.error('Wrong username or password.', { id });
     }
   };
 

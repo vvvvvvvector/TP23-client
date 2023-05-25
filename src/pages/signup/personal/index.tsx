@@ -2,6 +2,8 @@ import { useRef, useEffect, useState, useContext } from 'react';
 import { toast } from 'react-hot-toast';
 import { useForm, FieldValues } from 'react-hook-form';
 
+import { signIn } from 'next-auth/react';
+
 import { useRouter } from 'next/router';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -57,33 +59,68 @@ export default function Personal() {
     resolver: zodResolver(personalValidationSchema),
   });
 
-  const onSubmit = (data: FieldValues) => {
+  const onSubmit = async (data: FieldValues) => {
     const user: {
       email: string;
       username: string;
       password: string;
-      age: string;
+      age: number;
       sex: string;
-      weight: string;
-      height: string;
-      activity: string;
+      weight: number;
+      height: number;
+      activity: number;
     } = {
       ...identifier,
       ...{
         password: password.password,
       },
       ...{
-        age: personal.age,
+        age: +personal.age,
         sex: personal.sex,
-        weight: personal.weight,
-        height: personal.height,
-        activity: personal.activity,
+        weight: +personal.weight,
+        height: +personal.height,
+        activity: 1337,
       },
     };
 
-    toast.success(<pre>{JSON.stringify(user, null, 2)}</pre>);
+    const id = toast.loading('Signing up...');
 
-    router.push(`/${user.username}/calories`);
+    const res = await fetch(`http://127.0.0.1:5000/auth/signup`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: user.username,
+        email: user.email,
+        password: user.password,
+        age: user.age,
+        sex: user.sex,
+        weight: user.weight,
+        height: user.height,
+        activity: user.activity,
+      }),
+    });
+
+    const datajson = await res.json();
+
+    if (datajson.message === 'success') {
+      const result = await signIn('credentials', {
+        username: user.username,
+        password: user.password,
+        redirect: false,
+      });
+
+      if (result?.ok) {
+        router.push(`/${user.username}/calories`);
+
+        toast.success('Sign up successfully.', { id });
+      } else {
+        toast.error('Sign up failed.', { id });
+      }
+    } else {
+      toast.error(datajson.message);
+    }
   };
 
   useEffect(() => {
