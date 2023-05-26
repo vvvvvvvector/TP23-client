@@ -66,6 +66,7 @@ export default function Password() {
                 setPassword({ ...password, password: event.target.value });
               },
             })}
+            autoComplete='off'
             type='password'
             value={password?.password}
             className={`${
@@ -83,6 +84,7 @@ export default function Password() {
                 setPassword({ ...password, confirm: event.target.value });
               },
             })}
+            autoComplete='off'
             value={password?.confirm}
             type='password'
             className={`${

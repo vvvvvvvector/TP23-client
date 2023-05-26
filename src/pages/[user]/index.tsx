@@ -22,12 +22,13 @@ export default function Account() {
       Signed in user account info:
       <p>{`email: ${session.user.data.email}`}</p>
       <p>{`username: ${session.user.data.username}`}</p>
+      <p>{`sex: ${session.user.data.sex}`}</p>
       <p>{`age: ${session.user.data.age}`}</p>
       <p>{`activity_level: ${session.user.data.activity}`}</p>
       <p>{`id: ${session.user.data.id}`}</p>
       <p>{`height: ${session.user.data.height}`}</p>
       <p>{`weight: ${session.user.data.weight}`}</p>
-      <p>{`img_url: ${session.user.data.imgUrl}`}</p>
+      <p>{`img_url: ${session.user.data.imgUrl || 'no image'}`}</p>
     </HomeLayout>
   );
 }

@@ -18,6 +18,8 @@ import { IndetifierContextStateType } from '@/providers/IdentifierProvider';
 import { PersonalContext } from '@/providers/PersonalProvider';
 import { PersonalContextStateType } from '@/providers/PersonalProvider';
 
+import { UserSignUp } from '@/types/shared';
+
 import WelcomeLayout from '@/layouts/Welcome';
 
 const options = ['minimal', 'weak', 'medium', 'high', 'extra activity'];
@@ -60,32 +62,19 @@ export default function Personal() {
   });
 
   const onSubmit = async (data: FieldValues) => {
-    const user: {
-      email: string;
-      username: string;
-      password: string;
-      age: number;
-      sex: string;
-      weight: number;
-      height: number;
-      activity: number;
-    } = {
+    const user: UserSignUp = {
       ...identifier,
-      ...{
-        password: password.password,
-      },
-      ...{
-        age: +personal.age,
-        sex: personal.sex,
-        weight: +personal.weight,
-        height: +personal.height,
-        activity: 1337,
-      },
+      password: password.password,
+      age: +personal.age,
+      sex: personal.sex,
+      weight: +personal.weight,
+      height: +personal.height,
+      activity: personal.activity,
     };
 
     const id = toast.loading('Signing up...');
 
-    const res = await fetch(`http://127.0.0.1:5000/auth/signup`, {
+    const res = await fetch('http://127.0.0.1:5000/auth/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

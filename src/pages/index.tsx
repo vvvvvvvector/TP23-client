@@ -80,6 +80,7 @@ export default function Welcome() {
           >
             <input
               {...register('password')}
+              autoComplete='off'
               type={hiddenPassword ? 'password' : 'text'}
               className='w-[85%] rounded bg-none p-3'
               placeholder='super secret password'

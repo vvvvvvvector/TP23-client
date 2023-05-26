@@ -30,7 +30,7 @@ export const authOptions: NextAuthOptions = {
           password: string;
         };
 
-        const res = await fetch(`${process.env.BACKEND_URL}/auth/signin`, {
+        const res = await fetch('http://127.0.0.1:5000/auth/signin', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
