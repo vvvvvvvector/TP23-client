@@ -20,7 +20,7 @@ interface IndetifierProviderProps {
 }
 
 const IndetifierProvider: FC<IndetifierProviderProps> = ({ children }) => {
-  const [identifier, setIdentifier] = useState({
+  const [identifier, setIdentifier] = useState<IIdentifier>({
     email: '',
     username: '',
   });

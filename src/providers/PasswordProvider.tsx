@@ -19,7 +19,7 @@ interface PasswordProviderProps {
 }
 
 const PasswordProvider: FC<PasswordProviderProps> = ({ children }) => {
-  const [password, setPassword] = useState({
+  const [password, setPassword] = useState<IPassword>({
     password: '',
     confirm: '',
   });

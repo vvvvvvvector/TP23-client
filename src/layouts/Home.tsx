@@ -66,11 +66,11 @@ const Home: FC<HomeProps> = ({ children }) => {
           </button>
         </div>
         <button
-          onClick={() => {
+          onClick={async () => {
             const result = window.confirm('Are you sure you want to sign out?');
 
             if (result) {
-              signOut({
+              await signOut({
                 redirect: false,
               });
 

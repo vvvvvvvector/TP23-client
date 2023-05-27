@@ -1,11 +1,13 @@
 import { FC, createContext, useState } from 'react';
 
+import { sexType, activityType } from '@/types/shared';
+
 interface IPersonal {
   age: string;
-  sex: string;
+  sex: sexType;
   weight: string;
   height: string;
-  activity: string;
+  activity: activityType;
 }
 
 export type PersonalContextStateType = [
@@ -22,7 +24,7 @@ interface PersonalProviderProps {
 }
 
 const PersonalProvider: FC<PersonalProviderProps> = ({ children }) => {
-  const [personal, setPersonal] = useState({
+  const [personal, setPersonal] = useState<IPersonal>({
     age: '',
     sex: 'm',
     weight: '',
