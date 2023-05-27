@@ -18,7 +18,7 @@ import { IndetifierContextStateType } from '@/providers/IdentifierProvider';
 import { PersonalContext } from '@/providers/PersonalProvider';
 import { PersonalContextStateType } from '@/providers/PersonalProvider';
 
-import { UserSignUp } from '@/types/shared';
+import { UserSignUpType, activityType, sexType } from '@/types/shared';
 
 import WelcomeLayout from '@/layouts/Welcome';
 
@@ -49,8 +49,10 @@ export default function Personal() {
 
   const [password] = useContext(PasswordContext) as PasswordContextStateType;
 
-  const [activity, setActivity] = useState<string>(options[0]);
-  const [sex, setSex] = useState<string>('m');
+  const [activity, setActivity] = useState<activityType>(
+    options[0] as activityType
+  );
+  const [sex, setSex] = useState<sexType>('m');
 
   const {
     handleSubmit,
@@ -62,7 +64,7 @@ export default function Personal() {
   });
 
   const onSubmit = async (data: FieldValues) => {
-    const user: UserSignUp = {
+    const user: UserSignUpType = {
       ...identifier,
       password: password.password,
       age: +personal.age,
@@ -108,14 +110,14 @@ export default function Personal() {
         toast.error('Sign up failed.', { id });
       }
     } else {
-      toast.error(datajson.message);
+      toast.error(datajson.message, { id });
     }
   };
 
   useEffect(() => {
     register('activity', {
       onChange() {
-        setPersonal({ ...personal, activity: activity });
+        setPersonal({ ...personal, activity: activity as activityType });
       },
     });
 
@@ -306,8 +308,11 @@ export default function Personal() {
                     <li
                       onClick={() => {
                         setValue('activity', option);
-                        setActivity(option);
-                        setPersonal({ ...personal, activity: option });
+                        setActivity(option as activityType);
+                        setPersonal({
+                          ...personal,
+                          activity: option as activityType,
+                        });
                       }}
                       className='cursor-pointer bg-neutral-100 p-2 hover:bg-neutral-200'
                       key={index}
