@@ -10,7 +10,7 @@ export default function Account() {
   const { data: session } = useSession();
 
   if (!session) {
-    return <h1 className='text-3xl font-bold'>You aren't signed in</h1>;
+    return <h1 className='text-3xl font-bold'>You aren't signed in 😭</h1>;
   } else if (session.user.data.username !== router.query.user) {
     return (
       <h1 className='text-3xl font-bold'>{`You aren't signed in as ${router.query.user}`}</h1>
