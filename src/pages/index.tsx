@@ -40,6 +40,8 @@ export default function Welcome() {
       redirect: false,
     });
 
+    console.log(result);
+
     if (result?.ok) {
       router.push(`/${data.username}/calories`);
 
