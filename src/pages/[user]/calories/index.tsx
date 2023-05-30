@@ -48,7 +48,7 @@ export default function Calories() {
 
   return (
     <HomeLayout>
-      <div className='flex flex-col items-center justify-start gap-8'>
+      <div className='no-scrollbar flex flex-col items-center justify-start gap-8'>
         <div>
           <h3 className='text-center text-2xl font-semibold'>
             Today's progress
