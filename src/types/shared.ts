@@ -1,3 +1,18 @@
+export type SessionUserType = {
+  token: string;
+  data: {
+    id: number;
+    username: string;
+    email: string;
+    height: number;
+    weight: number;
+    sex: string;
+    age: number;
+    activity: string;
+    imgUrl: string;
+  };
+};
+
 export type UserSignUpType = {
   email: string;
   username: string;
