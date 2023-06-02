@@ -19,46 +19,48 @@ interface HomeProps {
 const Home: FC<HomeProps> = ({ children }) => {
   const router = useRouter();
 
+  const username = router.query.user;
+
   return (
-    <section className='flex h-full w-full overflow-scroll bg-white'>
+    <section className='no-scrollbar flex h-full w-full overflow-scroll bg-white'>
       <div className='grid h-full w-[22%] place-items-center border-r border-[#D9D9D9] bg-[#F7F6F6] px-12 max-[720px]:p-5 max-[475px]:w-[30%]'>
         <div className='flex w-full items-center justify-between max-[1000px]:flex-col max-[1000px]:gap-5'>
           <div className='flex h-[56px] w-[56px] items-center justify-center rounded-full bg-gray-400 font-mono font-bold text-gray-700'>
             img
           </div>
-          <span>{router.query.user}</span>
+          <span>{username}</span>
         </div>
         <div className='flex w-full flex-col gap-10'>
           <button
-            onClick={() => router.push(`/${router.query.user}/calories`)}
+            onClick={() => router.push(`/${username}/calories`)}
             className='flex h-[50px] items-center justify-between rounded-lg border-b-2 border-b-violet-500 bg-violet-200 px-7 transition-[background-color] hover:bg-violet-300 max-[1000px]:justify-center max-[550px]:px-0'
           >
             <CaloriesSvg className='text-[#1E293B]' />
             <span className='font-medium max-[1000px]:hidden'>Calories</span>
           </button>
           <button
-            onClick={() => router.push(`/${router.query.user}/fridge`)}
+            onClick={() => router.push(`/${username}/fridge`)}
             className='flex h-[50px] items-center justify-between rounded-lg border-b-2 border-b-violet-500 bg-violet-200 px-7 transition-[background-color] hover:bg-violet-300 max-[1000px]:justify-center max-[550px]:px-0'
           >
             <FridgeSvg className='text-[#1E293B]' />
             <span className='font-medium max-[1000px]:hidden'>Fridge</span>
           </button>
           <button
-            onClick={() => router.push(`/${router.query.user}/recipes`)}
+            onClick={() => router.push(`/${username}/recipes`)}
             className='flex h-[50px] items-center justify-between rounded-lg border-b-2 border-b-violet-500 bg-violet-200 px-7 transition-[background-color] hover:bg-violet-300 max-[1000px]:justify-center max-[550px]:px-0'
           >
             <RecipesSvg className='text-[#1E293B]' />
             <span className='font-medium max-[1000px]:hidden'>Recipes</span>
           </button>
           <button
-            onClick={() => router.push(`/${router.query.user}/finances`)}
+            onClick={() => router.push(`/${username}/finances`)}
             className='flex h-[50px] items-center justify-between rounded-lg border-b-2 border-b-violet-500 bg-violet-200 px-7 transition-[background-color] hover:bg-violet-300 max-[1000px]:justify-center max-[550px]:px-0'
           >
             <FinancesSvg className='text-[#1E293B]' />
             <span className='font-medium max-[1000px]:hidden'>Finances</span>
           </button>
           <button
-            onClick={() => router.push(`/${router.query.user}`)}
+            onClick={() => router.push(`/${username}`)}
             className='flex h-[50px] items-center justify-between rounded-lg border-b-2 border-b-violet-500 bg-violet-200 px-7 transition-[background-color] hover:bg-violet-300 max-[1000px]:justify-center max-[550px]:px-0'
           >
             <AccountSvg className='text-[#1E293B]' />
