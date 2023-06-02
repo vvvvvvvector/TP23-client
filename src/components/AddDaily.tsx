@@ -29,6 +29,7 @@ const AddDaily: FC<AddDailyProps> = ({ setAddDaily, token }) => {
 
   const onSubmit = async (data: FieldValues) => {
     const id = toast.loading('Adding elements...');
+
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/calories`, {
         method: 'POST',
