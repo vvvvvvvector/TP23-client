@@ -86,7 +86,7 @@ const Home: FC<HomeProps> = ({ children }) => {
           <span className='font-medium'>Sign out</span>
         </button>
       </div>
-      <div className='no-scrollbar h-full max-h-full flex-1 overflow-scroll px-10 py-5'>
+      <div className='no-scrollbar h-full max-h-full flex-1 overflow-scroll'>
         {children}
       </div>
     </section>
