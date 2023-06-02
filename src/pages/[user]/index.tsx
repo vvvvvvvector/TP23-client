@@ -2,6 +2,8 @@ import { useRouter } from 'next/router';
 
 import { useSession } from 'next-auth/react';
 
+import { DefaultUserImage } from '@/assets/svgs';
+
 import HomeLayout from '@/layouts/Home';
 
 export default function Account() {
@@ -19,17 +21,31 @@ export default function Account() {
 
   return (
     <HomeLayout>
-      <div className='px-10 py-5'>
-        Signed in user account info:
-        <p>{`email: ${session.user.data.email}`}</p>
-        <p>{`username: ${session.user.data.username}`}</p>
-        <p>{`sex: ${session.user.data.sex}`}</p>
-        <p>{`age: ${session.user.data.age}`}</p>
-        <p>{`activity_level: ${session.user.data.activity}`}</p>
-        <p>{`id: ${session.user.data.id}`}</p>
-        <p>{`height: ${session.user.data.height}`}</p>
-        <p>{`weight: ${session.user.data.weight}`}</p>
-        <p>{`img_url: ${session.user.data.imgUrl || 'no image'}`}</p>
+      <div className='grid h-full w-full place-items-center'>
+        <div className='flex w-[55%] flex-col gap-10'>
+          <div className='flex w-full justify-center'>
+            <div className='flex h-[100px] w-[100px] cursor-pointer items-center justify-center rounded-full bg-gray-300 font-mono font-bold text-gray-700'>
+              {session.user.data.imgUrl || (
+                <DefaultUserImage className='scale-[2.45] transform' />
+              )}
+            </div>
+          </div>
+          <p className='text-lg'>{`Username: ${session.user.data.username}`}</p>
+          <p className='text-lg'>{`Email: ${session.user.data.email}`}</p>
+          <p className='text-lg'>{`Sex: ${
+            session.user.data.sex === 'm' ? 'male 🧔‍♂️' : 'female 👩'
+          }`}</p>
+          <p className='text-lg'>{`Age: ${session.user.data.age}`}</p>
+          <p className='text-lg'>{`Activity level: ${session.user.data.activity}`}</p>
+          <p className='text-lg'>{`Height: ${session.user.data.height} cm.`}</p>
+          <p className='text-lg'>{`Weight: ${session.user.data.weight} kg.`}</p>
+          <button
+            type='submit'
+            className='flex w-[100%] items-center justify-center rounded bg-green-300 p-3 font-medium text-white transition-[background-color] hover:bg-green-400 active:bg-green-500 disabled:bg-gray-200'
+          >
+            <span>Update profile</span>
+          </button>
+        </div>
       </div>
     </HomeLayout>
   );

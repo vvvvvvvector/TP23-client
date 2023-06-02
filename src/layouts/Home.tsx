@@ -1,12 +1,13 @@
 import { FC } from 'react';
 import { toast } from 'react-hot-toast';
 
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 
 import { useRouter } from 'next/router';
 import {
   AccountSvg,
   CaloriesSvg,
+  DefaultUserImage,
   FinancesSvg,
   FridgeSvg,
   RecipesSvg,
@@ -19,14 +20,21 @@ interface HomeProps {
 const Home: FC<HomeProps> = ({ children }) => {
   const router = useRouter();
 
+  const { data: session } = useSession();
+
   const username = router.query.user;
 
   return (
     <section className='no-scrollbar flex h-full w-full overflow-scroll bg-white'>
       <div className='grid h-full w-[22%] place-items-center border-r border-[#D9D9D9] bg-[#F7F6F6] px-12 max-[720px]:p-5 max-[475px]:w-[30%]'>
-        <div className='flex w-full items-center justify-between max-[1000px]:flex-col max-[1000px]:gap-5'>
-          <div className='flex h-[56px] w-[56px] items-center justify-center rounded-full bg-gray-400 font-mono font-bold text-gray-700'>
-            img
+        <div
+          onClick={() => router.push(`/${username}`)}
+          className='flex w-full cursor-pointer items-center justify-between max-[1000px]:flex-col max-[1000px]:gap-5'
+        >
+          <div className='flex h-[56px] w-[56px] items-center justify-center rounded-full bg-gray-300 font-mono font-bold text-gray-700'>
+            {session?.user.data.imgUrl || (
+              <DefaultUserImage className='scale-[1.5] transform' />
+            )}
           </div>
           <span>{username}</span>
         </div>

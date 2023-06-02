@@ -71,9 +71,9 @@ const Welcome: FC<WelcomeProps> = ({ children }) => {
   }, [status]);
 
   return (
-    <section className='h-[92%] w-[95%] max-w-[940px] rounded-2xl bg-white shadow-lg max-[645px]:h-[95%]'>
+    <section className='h-[96%] w-[95%] max-w-[1000px] rounded-2xl bg-white shadow-lg max-[645px]:h-[95%]'>
       <div className='grid h-full w-full place-items-center'>
-        <div className='flex h-full w-full max-w-[550px] flex-col items-center justify-center gap-7'>
+        <div className='flex h-full w-full max-w-[550px] flex-col items-center justify-center gap-5'>
           <Stepper />
           {children}
           <div className='flex w-[85%] items-center justify-center gap-3 p-4 font-semibold max-[450px]:flex-col'>
