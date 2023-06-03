@@ -1,30 +1,37 @@
+import { FC } from 'react';
+
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 
-const carbohydratesCurrent = 40;
-const carbohydratesNorm = 140;
+interface ICarbohydratesPieProps {
+  current: number;
+  norm: number;
+}
 
-const carbohydrates = [
-  { name: 'Received (g)', value: carbohydratesCurrent },
-  { name: 'Remained (g)', value: carbohydratesNorm - carbohydratesCurrent },
-];
-
-const CarbohydratesPie = () => {
+const CarbohydratesPie: FC<ICarbohydratesPieProps> = ({ current, norm }) => {
   return (
     <div className='text-center'>
-      <span>{'Carbohydrates (g)'}</span>
+      <span>
+        {current >= norm ? 'Carbohydrates done 🎉' : 'Carbohydrates (g)'}
+      </span>
       <PieChart width={260} height={260}>
         <Pie
           dataKey='value'
           startAngle={90}
           endAngle={-270}
-          data={carbohydrates}
+          data={[
+            { name: 'Received (g)', value: current },
+            {
+              name: 'Remained (g)',
+              value: current >= norm ? 0 : norm - current,
+            },
+          ]}
           cx='50%'
           cy='50%'
           animationDuration={1000}
           innerRadius={60}
           outerRadius={80}
           fill='#8884d8'
-          label
+          label={current >= norm ? false : true}
           labelLine={false}
         >
           <Cell fill='#86efac' />

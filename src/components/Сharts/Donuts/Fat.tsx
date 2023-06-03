@@ -1,30 +1,35 @@
+import { FC } from 'react';
+
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 
-const fatCurrent = 30;
-const fatNorm = 54;
+interface IFatPieProps {
+  current: number;
+  norm: number;
+}
 
-const fat = [
-  { name: 'Received (g)', value: fatCurrent },
-  { name: 'Remained (g)', value: fatNorm - fatCurrent },
-];
-
-const FatPie = () => {
+const FatPie: FC<IFatPieProps> = ({ current, norm }) => {
   return (
     <div className='text-center'>
-      <span>{'Fat (g)'}</span>
+      <span>{current >= norm ? 'Fat done 🎉' : 'Fat (g)'}</span>
       <PieChart width={260} height={260}>
         <Pie
           dataKey='value'
           startAngle={90}
           endAngle={-270}
-          data={fat}
+          data={[
+            { name: 'Received (g)', value: current },
+            {
+              name: 'Remained (g)',
+              value: current >= norm ? 0 : norm - current,
+            },
+          ]}
           cx='50%'
           cy='50%'
           animationDuration={1000}
           innerRadius={60}
           outerRadius={80}
           fill='#8884d8'
-          label
+          label={current >= norm ? false : true}
           labelLine={false}
         >
           <Cell fill='#86efac' />
