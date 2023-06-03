@@ -8,32 +8,6 @@ import dynamic from 'next/dynamic';
 
 import AddDaily from '@/components/AddDaily';
 
-const DynamicCaloriesDonut = dynamic(
-  () => import('@/components/Сharts/Donuts/Calories'),
-  {
-    ssr: false,
-  }
-);
-
-const DynamicFatDonut = dynamic(
-  () => import('@/components/Сharts/Donuts/Fat'),
-  {
-    ssr: false,
-  }
-);
-
-const DynamicProteinDonut = dynamic(
-  () => import('@/components/Сharts/Donuts/Protein'),
-  {
-    ssr: false,
-  }
-);
-
-const DynamicCarbohydratesDonut = dynamic(
-  () => import('@/components/Сharts/Donuts/Carbohydrates'),
-  { ssr: false }
-);
-
 const DynamicWeekBarChart = dynamic(
   () => import('@/components/Сharts/WeekBarChart'),
   {
@@ -43,6 +17,7 @@ const DynamicWeekBarChart = dynamic(
 
 import HomeLayout from '@/layouts/Home';
 import { PlusSvg } from '@/assets/svgs';
+import Donuts from '@/components/Сharts/Donuts';
 
 export default function Calories() {
   const router = useRouter();
@@ -70,12 +45,7 @@ export default function Calories() {
               <h3 className='text-center text-2xl font-semibold'>
                 Today's progress
               </h3>
-              <div className='mt-[25px] flex'>
-                <DynamicCaloriesDonut />
-                <DynamicFatDonut />
-                <DynamicProteinDonut />
-                <DynamicCarbohydratesDonut />
-              </div>
+              <Donuts token={session.user.token} />
             </div>
             <div>
               <h3 className='text-center text-2xl font-semibold'>

@@ -1,30 +1,35 @@
+import { FC } from 'react';
+
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 
-const proteinCurrent = 6;
-const proteinNorm = 60;
+interface IProteinPieProps {
+  current: number;
+  norm: number;
+}
 
-const protein = [
-  { name: 'Received (g)', value: proteinCurrent },
-  { name: 'Remained (g)', value: proteinNorm - proteinCurrent },
-];
-
-const ProteinPie = () => {
+const ProteinPie: FC<IProteinPieProps> = ({ current, norm }) => {
   return (
     <div className='text-center'>
-      <span>{'Protein (g)'}</span>
+      <span>{current >= norm ? 'Protein done 🎉' : 'Protein (g)'}</span>
       <PieChart width={260} height={260}>
         <Pie
           dataKey='value'
           startAngle={90}
           endAngle={-270}
-          data={protein}
+          data={[
+            { name: 'Received (g)', value: current },
+            {
+              name: 'Remained (g)',
+              value: current >= norm ? 0 : norm - current,
+            },
+          ]}
           cx='50%'
           cy='50%'
           animationDuration={1000}
           innerRadius={60}
           outerRadius={80}
           fill='#8884d8'
-          label
+          label={current >= norm ? false : true}
           labelLine={false}
         >
           <Cell fill='#86efac' />
