@@ -5,10 +5,18 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import { daysNames } from '@/utils/utils';
 
 interface IWeekBarChartProps {
-  data: number[];
+  data: number[] | null;
 }
 
 const WeekBarChart: FC<IWeekBarChartProps> = ({ data }) => {
+  if (!data) {
+    return (
+      <div className='w-full p-16 text-center text-lg font-medium'>
+        Loading...
+      </div>
+    );
+  }
+
   return (
     <BarChart
       width={750}
