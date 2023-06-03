@@ -1,49 +1,25 @@
+import { FC } from 'react';
+
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 
-const data = [
-  {
-    name: 'Monday',
-    shortName: 'Mon',
-    data: 2400,
-  },
-  {
-    name: 'Tuesday',
-    shortName: 'Tues',
-    data: 3000,
-  },
-  {
-    name: 'Wednesday',
-    shortName: 'Wed',
-    data: 2000,
-  },
-  {
-    name: 'Thursday',
-    shortName: 'Thurs',
-    data: 2780,
-  },
-  {
-    name: 'Friday',
-    shortName: 'Fri',
-    data: 1890,
-  },
-  {
-    name: 'Saturday',
-    shortName: 'Sat',
-    data: 2390,
-  },
-  {
-    name: 'Sunday',
-    shortName: 'Sun',
-    data: 3490,
-  },
-];
+import { daysNames } from '@/utils/utils';
 
-const WeekBarChart = () => {
+interface IWeekBarChartProps {
+  data: number[];
+}
+
+const WeekBarChart: FC<IWeekBarChartProps> = ({ data }) => {
   return (
     <BarChart
       width={750}
       height={350}
-      data={data}
+      data={daysNames.map((day, index) => {
+        return {
+          name: day.name,
+          shortName: day.shortName,
+          data: data[index],
+        };
+      })}
       margin={{
         right: 50,
         top: 25,
