@@ -13,6 +13,21 @@ export type SessionUserType = {
   };
 };
 
+export type DonutsDataType = {
+  current: {
+    calories: number;
+    carbohydrates: number;
+    fat: number;
+    protein: number;
+  };
+  norm: {
+    calories: number;
+    carbohydrates: number;
+    fat: number;
+    protein: number;
+  };
+} | null;
+
 export type UserSignUpType = {
   email: string;
   username: string;

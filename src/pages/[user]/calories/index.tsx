@@ -4,20 +4,12 @@ import { useRouter } from 'next/router';
 
 import { useSession } from 'next-auth/react';
 
-import dynamic from 'next/dynamic';
-
 import AddDaily from '@/components/AddDaily';
-
-const DynamicWeekBarChart = dynamic(
-  () => import('@/components/Сharts/WeekBarChart'),
-  {
-    ssr: false,
-  }
-);
+import Charts from '@/components/Сharts/Charts';
 
 import HomeLayout from '@/layouts/Home';
+
 import { PlusSvg } from '@/assets/svgs';
-import Donuts from '@/components/Сharts/Donuts';
 
 export default function Calories() {
   const router = useRouter();
@@ -41,24 +33,7 @@ export default function Calories() {
       ) : (
         <>
           <div className='flex flex-col items-center justify-start gap-8 px-10 py-5'>
-            <div>
-              <h3 className='text-center text-2xl font-semibold'>
-                Today's progress
-              </h3>
-              <Donuts token={session.user.token} />
-            </div>
-            <div>
-              <h3 className='text-center text-2xl font-semibold'>
-                Statistics for the week
-              </h3>
-              <DynamicWeekBarChart />
-            </div>
-            <div>
-              <h3 className='text-center text-2xl font-semibold'>
-                Statistics for the month
-              </h3>
-              <DynamicWeekBarChart />
-            </div>
+            <Charts token={session.user.token} />
           </div>
           <button
             onClick={() => setAddDaily(true)}
