@@ -5,13 +5,14 @@ import Donuts from './Donuts';
 import WeekBarChart from './WeekBarChart';
 
 import { DonutsDataType } from '@/types/shared';
-import { getTodaysDate } from '@/utils/utils';
+import { getTodaysDate, getWeekCaloriesData } from '@/utils/utils';
 
 interface IChartsProps {
   token: string;
 }
 
 const Charts: FC<IChartsProps> = ({ token }) => {
+  const [weekData, setWeekData] = useState<number[] | null>(null);
   const [donutsData, setDonutsData] = useState<DonutsDataType>(null);
 
   useEffect(() => {
@@ -36,6 +37,10 @@ const Charts: FC<IChartsProps> = ({ token }) => {
       const data = await Promise.all(responses.map((res) => res.json()));
 
       const todaysDonutsData = data[0][getTodaysDate()];
+
+      const weekData = getWeekCaloriesData(data[0]);
+
+      setWeekData(weekData);
 
       setDonutsData({
         current: {
@@ -70,13 +75,13 @@ const Charts: FC<IChartsProps> = ({ token }) => {
         <h3 className='text-center text-2xl font-semibold'>
           Statistics for the week
         </h3>
-        <WeekBarChart data={[1000, 1953, 1500, 1800, 1506, 2100, 1000]} />
+        <WeekBarChart data={weekData} />
       </div>
       <div>
         <h3 className='text-center text-2xl font-semibold'>
           Statistics for the month
         </h3>
-        <WeekBarChart data={[1000, 1953, 1500, 1800, 1506, 2100, 1000]} />
+        {/* <WeekBarChart data={[1000, 1953, 1500, 1800, 1506, 2100, 1000]} /> */}
       </div>
     </>
   );
