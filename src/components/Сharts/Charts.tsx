@@ -5,14 +5,21 @@ import Donuts from './Donuts';
 import WeekBarChart from './WeekBarChart';
 
 import { DonutsDataType } from '@/types/shared';
-import { getTodaysDate, getWeekCaloriesData } from '@/utils/utils';
+import { getTodaysDate, getWeekData } from '@/utils/utils';
 
 interface IChartsProps {
   token: string;
 }
 
 const Charts: FC<IChartsProps> = ({ token }) => {
-  const [weekData, setWeekData] = useState<number[] | null>(null);
+  const [weekCaloriesData, setWeekCaloriesData] = useState<number[] | null>(
+    null
+  );
+  const [weekCarbohydratesData, setWeekCarbohydratesData] = useState<
+    number[] | null
+  >(null);
+  const [weekFatData, setWeekFatData] = useState<number[] | null>(null);
+  const [weekProteinData, setWeekProteinData] = useState<number[] | null>(null);
   const [donutsData, setDonutsData] = useState<DonutsDataType>(null);
 
   useEffect(() => {
@@ -38,9 +45,12 @@ const Charts: FC<IChartsProps> = ({ token }) => {
 
       const todaysDonutsData = data[0][getTodaysDate()];
 
-      const weekData = getWeekCaloriesData(data[0]);
+      const weekData = getWeekData(data[0]);
 
-      setWeekData(weekData);
+      setWeekCaloriesData(weekData[0]);
+      setWeekCarbohydratesData(weekData[1]);
+      setWeekFatData(weekData[2]);
+      setWeekProteinData(weekData[3]);
 
       setDonutsData({
         current: {
@@ -71,17 +81,16 @@ const Charts: FC<IChartsProps> = ({ token }) => {
         <h3 className='text-center text-2xl font-semibold'>Today's progress</h3>
         <Donuts data={donutsData} />
       </div>
-      <div>
+      <div className='overflow-scroll'>
         <h3 className='text-center text-2xl font-semibold'>
           Statistics for the week
         </h3>
-        <WeekBarChart data={weekData} />
-      </div>
-      <div>
-        <h3 className='text-center text-2xl font-semibold'>
-          Statistics for the month
-        </h3>
-        {/* <WeekBarChart data={[1000, 1953, 1500, 1800, 1506, 2100, 1000]} /> */}
+        <div className='flex flex-col gap-8'>
+          <WeekBarChart name='Calories' data={weekCaloriesData} />
+          <WeekBarChart name='Carbohydrates' data={weekCarbohydratesData} />
+          <WeekBarChart name='Fat' data={weekFatData} />
+          <WeekBarChart name='Protein' data={weekProteinData} />
+        </div>
       </div>
     </>
   );

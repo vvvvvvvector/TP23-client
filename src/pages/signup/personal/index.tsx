@@ -22,7 +22,13 @@ import { UserSignUpType, activityType, sexType } from '@/types/shared';
 
 import WelcomeLayout from '@/layouts/Welcome';
 
-const options = ['minimal', 'weak', 'medium', 'high', 'extra activity'];
+const options = [
+  'minimal',
+  'weak',
+  'medium',
+  'high',
+  'extra activity',
+] as const;
 
 const personalValidationSchema = z.object({
   age: z.string().nonempty({ message: 'Age is required.' }),
@@ -49,9 +55,7 @@ export default function Personal() {
 
   const [password] = useContext(PasswordContext) as PasswordContextStateType;
 
-  const [activity, setActivity] = useState<activityType>(
-    options[0] as activityType
-  );
+  const [activity, setActivity] = useState<activityType>(options[0]);
   const [sex, setSex] = useState<sexType>('m');
 
   const {
@@ -117,7 +121,7 @@ export default function Personal() {
   useEffect(() => {
     register('activity', {
       onChange() {
-        setPersonal({ ...personal, activity: activity as activityType });
+        setPersonal({ ...personal, activity: activity });
       },
     });
 

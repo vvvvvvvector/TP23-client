@@ -128,14 +128,37 @@ const getWeekDates = (): string[] => {
   return dates.map((date) => parseDateToCorrectFormat(date));
 };
 
-export const getWeekCaloriesData = (map: MonthDataMap): number[] => {
+export const getWeekData = (map: MonthDataMap): number[][] => {
   const dates = getWeekDates();
 
-  return dates.map((date) => {
-    if (map[date]) {
-      return map[date].calories;
-    } else {
+  return [
+    dates.map((date) => {
+      if (map[date]) {
+        return map[date].calories;
+      }
+
       return 0;
-    }
-  });
+    }),
+    dates.map((date) => {
+      if (map[date]) {
+        return map[date].carbohydrates;
+      }
+
+      return 0;
+    }),
+    dates.map((date) => {
+      if (map[date]) {
+        return map[date].fat;
+      }
+
+      return 0;
+    }),
+    dates.map((date) => {
+      if (map[date]) {
+        return map[date].protein;
+      }
+
+      return 0;
+    }),
+  ];
 };

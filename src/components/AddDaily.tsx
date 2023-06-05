@@ -3,29 +3,17 @@ import toast from 'react-hot-toast';
 
 import { useForm, FieldValues } from 'react-hook-form';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-
 interface AddDailyProps {
   setAddDaily: (openOverlay: boolean) => void;
   token: string;
 }
-
-const addDailyValidationSchema = z.object({
-  calories: z.string().nonempty({ message: 'Calories is required.' }),
-  protein: z.string().nonempty({ message: 'Protein is required.' }),
-  fat: z.string().nonempty({ message: 'Fat is required.' }),
-  carbohydrates: z.string().nonempty({ message: 'Carbohydrates is required.' }),
-});
 
 const AddDaily: FC<AddDailyProps> = ({ setAddDaily, token }) => {
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<z.infer<typeof addDailyValidationSchema>>({
-    resolver: zodResolver(addDailyValidationSchema),
-  });
+  } = useForm();
 
   const onSubmit = async (data: FieldValues) => {
     const id = toast.loading('Adding elements...');
@@ -77,7 +65,9 @@ const AddDaily: FC<AddDailyProps> = ({ setAddDaily, token }) => {
             <div className='mt-2 flex items-center justify-between gap-5 rounded'>
               <label className='text-lg'>Calories (kkal):</label>
               <input
-                {...register('calories')}
+                {...register('calories', {
+                  required: true,
+                })}
                 min={0}
                 type='number'
                 className={`${
@@ -93,7 +83,9 @@ const AddDaily: FC<AddDailyProps> = ({ setAddDaily, token }) => {
             <div className='mt-2 flex items-center justify-between gap-5 rounded'>
               <label className='text-lg'>Protein (g):</label>
               <input
-                {...register('protein')}
+                {...register('protein', {
+                  required: true,
+                })}
                 min={0}
                 type='number'
                 className={`${
@@ -109,7 +101,9 @@ const AddDaily: FC<AddDailyProps> = ({ setAddDaily, token }) => {
             <div className='mt-2 flex items-center justify-between gap-5 rounded'>
               <label className='text-lg'>Fat (g):</label>
               <input
-                {...register('fat')}
+                {...register('fat', {
+                  required: true,
+                })}
                 min={0}
                 type='number'
                 className={`${
@@ -123,7 +117,9 @@ const AddDaily: FC<AddDailyProps> = ({ setAddDaily, token }) => {
             <div className='mt-2 flex items-center justify-between gap-5 rounded'>
               <label className='text-lg'>Carbohydrates (g):</label>
               <input
-                {...register('carbohydrates')}
+                {...register('carbohydrates', {
+                  required: true,
+                })}
                 min={0}
                 type='number'
                 className={`${
