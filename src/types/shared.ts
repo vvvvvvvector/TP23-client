@@ -13,6 +13,14 @@ export type SessionUserType = {
   };
 };
 
+export type ChartsDataType = {
+  donuts: DonutsDataType;
+  weekCalories: number[];
+  weekCarbohydrates: number[];
+  weekFat: number[];
+  weekProtein: number[];
+};
+
 export type DonutsDataType = {
   current: {
     calories: number;

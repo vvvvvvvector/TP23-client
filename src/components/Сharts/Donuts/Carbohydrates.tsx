@@ -13,7 +13,7 @@ const CarbohydratesPie: FC<ICarbohydratesPieProps> = ({ current, norm }) => {
       <span>
         {current >= norm ? 'Carbohydrates done 🎉' : 'Carbohydrates (g)'}
       </span>
-      <PieChart width={260} height={260}>
+      <PieChart width={275} height={260}>
         <Pie
           dataKey='value'
           startAngle={90}

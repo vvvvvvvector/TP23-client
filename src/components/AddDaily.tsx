@@ -1,6 +1,8 @@
 import { FC } from 'react';
 import toast from 'react-hot-toast';
 
+import { useRouter } from 'next/router';
+
 import { useForm, FieldValues } from 'react-hook-form';
 
 interface AddDailyProps {
@@ -9,6 +11,8 @@ interface AddDailyProps {
 }
 
 const AddDaily: FC<AddDailyProps> = ({ setAddDaily, token }) => {
+  const router = useRouter();
+
   const {
     handleSubmit,
     register,
@@ -37,6 +41,8 @@ const AddDaily: FC<AddDailyProps> = ({ setAddDaily, token }) => {
 
       if (json.message === 'Element added') {
         toast.success('Added successfully.', { id });
+
+        router.replace(router.asPath);
 
         setAddDaily(false);
       }
