@@ -6,9 +6,10 @@ import { daysNames } from '@/utils/utils';
 
 interface IWeekBarChartProps {
   data: number[] | null;
+  name: string;
 }
 
-const WeekBarChart: FC<IWeekBarChartProps> = ({ data }) => {
+const WeekBarChart: FC<IWeekBarChartProps> = ({ data, name }) => {
   if (!data) {
     return (
       <div className='w-full p-16 text-center text-lg font-medium'>
@@ -37,7 +38,12 @@ const WeekBarChart: FC<IWeekBarChartProps> = ({ data }) => {
       <XAxis dataKey='shortName' />
       <YAxis />
       <Tooltip />
-      <Bar dataKey='data' unit=' kkal' name='Calories' fill='#93c5fd' />
+      <Bar
+        dataKey='data'
+        unit={name === 'Calories' ? ' kkal' : ' g'}
+        name={name}
+        fill='#fda4af'
+      />
     </BarChart>
   );
 };
