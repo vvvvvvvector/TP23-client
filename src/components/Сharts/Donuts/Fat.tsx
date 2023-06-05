@@ -11,7 +11,7 @@ const FatPie: FC<IFatPieProps> = ({ current, norm }) => {
   return (
     <div className='text-center'>
       <span>{current >= norm ? 'Fat done 🎉' : 'Fat (g)'}</span>
-      <PieChart width={260} height={260}>
+      <PieChart width={275} height={260}>
         <Pie
           dataKey='value'
           startAngle={90}

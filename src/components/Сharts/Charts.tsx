@@ -3,16 +3,10 @@ import { FC } from 'react';
 import Donuts from './Donuts';
 import WeekBarChart from './WeekBarChart';
 
-import { DonutsDataType } from '@/types/shared';
+import { ChartsDataType } from '@/types/shared';
 
 interface IChartsProps {
-  data: {
-    donuts: DonutsDataType;
-    weekCalories: number[];
-    weekCarbohydrates: number[];
-    weekFat: number[];
-    weekProtein: number[];
-  };
+  data: ChartsDataType;
 }
 
 const Charts: FC<IChartsProps> = ({ data }) => {

@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { GetServerSideProps } from 'next';
+
 import { useRouter } from 'next/router';
 
 import { getToken } from 'next-auth/jwt';
@@ -13,10 +15,12 @@ import HomeLayout from '@/layouts/Home';
 
 import { PlusSvg } from '@/assets/svgs';
 
+import { ChartsDataType } from '@/types/shared';
+
 import { getTodaysDate, getWeekData } from '@/utils/utils';
 
-export const getServerSideProps = async (context: any) => {
-  const session = await getToken({ req: context.req });
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const session = await getToken({ req });
 
   if (!session) {
     return {
@@ -75,7 +79,7 @@ export const getServerSideProps = async (context: any) => {
   };
 };
 
-export default function Calories({ data }: { data: any }) {
+export default function Calories({ data }: { data: ChartsDataType }) {
   const router = useRouter();
 
   const [addDaily, setAddDaily] = useState(false);
