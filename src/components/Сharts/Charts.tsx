@@ -81,11 +81,11 @@ const Charts: FC<IChartsProps> = ({ token }) => {
         <h3 className='text-center text-2xl font-semibold'>Today's progress</h3>
         <Donuts data={donutsData} />
       </div>
-      <div className='overflow-scroll'>
+      <div>
         <h3 className='text-center text-2xl font-semibold'>
           Statistics for the week
         </h3>
-        <div className='flex flex-col gap-8'>
+        <div className='no-scrollbar flex flex-col gap-9'>
           <WeekBarChart name='Calories' data={weekCaloriesData} />
           <WeekBarChart name='Carbohydrates' data={weekCarbohydratesData} />
           <WeekBarChart name='Fat' data={weekFatData} />
