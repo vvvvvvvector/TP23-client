@@ -7,7 +7,7 @@ import { useForm, FieldValues } from 'react-hook-form';
 
 interface AddDailyProps {
   setAddDaily: (openOverlay: boolean) => void;
-  token: string;
+  token: string | undefined;
 }
 
 const AddDaily: FC<AddDailyProps> = ({ setAddDaily, token }) => {

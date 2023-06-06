@@ -24,6 +24,14 @@ const Home: FC<HomeProps> = ({ children }) => {
 
   const username = router.query.user;
 
+  if (!session) {
+    return <h1 className='text-3xl font-bold'>You aren't signed in 😭</h1>;
+  } else if (session.user.data.username !== username) {
+    return (
+      <h1 className='text-3xl font-bold'>{`You aren't signed in as ${username} 🤔`}</h1>
+    );
+  }
+
   return (
     <section className='no-scrollbar flex h-full w-full overflow-scroll bg-white'>
       <div className='grid h-full w-[22%] place-items-center border-r border-[#D9D9D9] bg-[#F7F6F6] px-12 max-[720px]:p-5 max-[475px]:w-[30%]'>

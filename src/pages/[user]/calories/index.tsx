@@ -2,14 +2,12 @@ import { useState } from 'react';
 
 import { GetServerSideProps } from 'next';
 
-import { useRouter } from 'next/router';
-
 import { getToken } from 'next-auth/jwt';
 
 import { useSession } from 'next-auth/react';
 
 import AddDaily from '@/components/AddDaily';
-import Charts from '@/components/Сharts/Charts';
+import Charts from '@/components/Charts';
 
 import HomeLayout from '@/layouts/Home';
 
@@ -80,24 +78,14 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 };
 
 export default function Calories({ data }: { data: ChartsDataType }) {
-  const router = useRouter();
-
   const [addDaily, setAddDaily] = useState(false);
 
   const { data: session } = useSession();
 
-  if (!session) {
-    return <h1 className='text-3xl font-bold'>You aren't signed in 😭</h1>;
-  } else if (session.user.data.username !== router.query.user) {
-    return (
-      <h1 className='text-3xl font-bold'>{`You aren't signed in as ${router.query.user} 🤔`}</h1>
-    );
-  }
-
   return (
     <HomeLayout>
       {addDaily ? (
-        <AddDaily setAddDaily={setAddDaily} token={session.user.token} />
+        <AddDaily setAddDaily={setAddDaily} token={session?.user.token} />
       ) : (
         <>
           <div className='flex flex-col items-center justify-start gap-8 px-10 py-5'>
