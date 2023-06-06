@@ -1,7 +1,10 @@
 import { useContext } from 'react';
 import { useForm, FieldValues } from 'react-hook-form';
 
+import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
+
+import { getToken } from 'next-auth/jwt';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -24,6 +27,25 @@ const identifierValidationSchema = z.object({
     .min(5, { message: 'Username must be at least 5 characters long.' })
     .max(19, { message: 'Username is too long.' }),
 });
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const session = (await getToken({ req })) as {
+    data: { username: string };
+  };
+
+  if (session) {
+    return {
+      redirect: {
+        destination: `/${session.data.username}/calories`,
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
 
 export default function Identifier() {
   const router = useRouter();

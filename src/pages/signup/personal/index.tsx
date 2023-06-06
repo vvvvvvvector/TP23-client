@@ -4,6 +4,9 @@ import { useForm, FieldValues } from 'react-hook-form';
 
 import { signIn } from 'next-auth/react';
 
+import { GetServerSideProps } from 'next';
+import { getToken } from 'next-auth/jwt';
+
 import { useRouter } from 'next/router';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -37,6 +40,25 @@ const personalValidationSchema = z.object({
   height: z.string().nonempty({ message: 'Height is required.' }),
   activity: z.string(),
 });
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const session = (await getToken({ req })) as {
+    data: { username: string };
+  };
+
+  if (session) {
+    return {
+      redirect: {
+        destination: `/${session.data.username}/calories`,
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
 
 export default function Personal() {
   const router = useRouter();

@@ -2,8 +2,10 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useForm, FieldValues } from 'react-hook-form';
 
+import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 
+import { getToken } from 'next-auth/jwt';
 import { signIn } from 'next-auth/react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -17,6 +19,25 @@ const signInValidationSchema = z.object({
   }),
   password: z.string().nonempty({ message: 'Password is required.' }),
 });
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const session = (await getToken({ req })) as {
+    data: { username: string };
+  };
+
+  if (session) {
+    return {
+      redirect: {
+        destination: `/${session.data.username}/calories`,
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
 
 export default function Welcome() {
   const router = useRouter();
