@@ -2,6 +2,8 @@ import { useForm, FieldValues } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
+import { getToken } from 'next-auth/jwt';
+
 import { useRouter } from 'next/router';
 
 import { useContext } from 'react';
@@ -9,6 +11,7 @@ import { PasswordContext } from '@/providers/PasswordProvider';
 import { PasswordContextStateType } from '@/providers/PasswordProvider';
 
 import WelcomeLayout from '@/layouts/Welcome';
+import { GetServerSideProps } from 'next';
 
 const passwordValidationSchema = z
   .object({
@@ -26,6 +29,25 @@ const passwordValidationSchema = z
     path: ['confirm'],
     message: "Passwords don't match.",
   });
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const session = (await getToken({ req })) as {
+    data: { username: string };
+  };
+
+  if (session) {
+    return {
+      redirect: {
+        destination: `/${session.data.username}/calories`,
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
 
 export default function Password() {
   const router = useRouter();
