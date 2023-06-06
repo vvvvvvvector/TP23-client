@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
-import Donuts from './Donuts';
-import WeekBarChart from './WeekBarChart';
+import Donuts from './Сharts/Donuts';
+import WeekBarChart from './Сharts/WeekBarChart';
 
 import { ChartsDataType } from '@/types/shared';
 
