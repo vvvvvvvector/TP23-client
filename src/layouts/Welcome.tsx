@@ -1,6 +1,4 @@
-import { FC, useEffect } from 'react';
-
-import { useSession } from 'next-auth/react';
+import { FC } from 'react';
 
 import { useRouter } from 'next/router';
 
@@ -61,14 +59,6 @@ const Stepper = () => {
 
 const Welcome: FC<WelcomeProps> = ({ children }) => {
   const router = useRouter();
-
-  const { data: session, status } = useSession();
-
-  useEffect(() => {
-    if (status === 'authenticated') {
-      router.push(`/${session.user.data.username}/calories`);
-    }
-  }, [status]);
 
   return (
     <section className='h-[96%] w-[95%] max-w-[1000px] rounded-2xl bg-white shadow-lg max-[645px]:h-[95%]'>
