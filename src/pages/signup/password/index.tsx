@@ -30,25 +30,6 @@ const passwordValidationSchema = z
     message: "Passwords don't match.",
   });
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const session = (await getToken({ req })) as {
-    data: { username: string };
-  };
-
-  if (session) {
-    return {
-      redirect: {
-        destination: `/${session.data.username}/calories`,
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {},
-  };
-};
-
 export default function Password() {
   const router = useRouter();
 
@@ -127,3 +108,22 @@ export default function Password() {
     </WelcomeLayout>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const session = (await getToken({ req })) as {
+    data: { username: string };
+  };
+
+  if (session) {
+    return {
+      redirect: {
+        destination: `/${session.data.username}/calories`,
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};

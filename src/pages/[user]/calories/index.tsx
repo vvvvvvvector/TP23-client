@@ -1,13 +1,12 @@
 import { useState } from 'react';
 
+import dynamic from 'next/dynamic';
+
 import { GetServerSideProps } from 'next';
-
-import { getToken } from 'next-auth/jwt';
-
-import { useSession } from 'next-auth/react';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
 import AddDaily from '@/components/AddDaily';
-import Charts from '@/components/Charts';
 
 import HomeLayout from '@/layouts/Home';
 
@@ -17,12 +16,62 @@ import { ChartsDataType } from '@/types/shared';
 
 import { getTodaysDate, getWeekData } from '@/utils/utils';
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const session = await getToken({ req });
+const DynamicCharts = dynamic(() => import('@/components/Charts'), {
+  ssr: false,
+});
+
+export default function Calories({
+  data,
+  token,
+}: {
+  token: string;
+  data: ChartsDataType;
+}) {
+  const [addDaily, setAddDaily] = useState(false);
+
+  return (
+    <HomeLayout>
+      {addDaily ? (
+        <AddDaily setAddDaily={setAddDaily} token={token} />
+      ) : (
+        <>
+          <div className='flex flex-col items-center justify-start gap-8 px-10 py-5'>
+            <DynamicCharts data={data} />
+          </div>
+          <button
+            onClick={() => setAddDaily(true)}
+            className='fixed bottom-8 right-8  rounded-full bg-green-300 p-6 shadow-lg transition-[background-color] hover:bg-green-400'
+          >
+            <PlusSvg />
+          </button>
+        </>
+      )}
+    </HomeLayout>
+  );
+}
+
+export const getServerSideProps: GetServerSideProps = async ({
+  req,
+  res,
+  params,
+}) => {
+  const session = await getServerSession(req, res, authOptions);
 
   if (!session) {
     return {
-      props: {},
+      redirect: {
+        destination: '/refused',
+        permanent: false,
+      },
+    };
+  }
+
+  if (session.user.data.username !== params?.user) {
+    return {
+      redirect: {
+        destination: `/${params?.user}/notyou`,
+        permanent: false,
+      },
     };
   }
 
@@ -31,14 +80,14 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${session.token}`,
+        Authorization: `Bearer ${session.user.token}`,
       },
     }),
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/calories/consumption`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${session.token}`,
+        Authorization: `Bearer ${session.user.token}`,
       },
     }),
   ]);
@@ -51,6 +100,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
   return {
     props: {
+      token: session.user.token,
       data: {
         donuts: {
           current: {
@@ -76,29 +126,3 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     },
   };
 };
-
-export default function Calories({ data }: { data: ChartsDataType }) {
-  const [addDaily, setAddDaily] = useState(false);
-
-  const { data: session } = useSession();
-
-  return (
-    <HomeLayout>
-      {addDaily ? (
-        <AddDaily setAddDaily={setAddDaily} token={session?.user.token} />
-      ) : (
-        <>
-          <div className='flex flex-col items-center justify-start gap-8 px-10 py-5'>
-            <Charts data={data} />
-          </div>
-          <button
-            onClick={() => setAddDaily(true)}
-            className='fixed bottom-8 right-8  rounded-full bg-green-300 p-6 shadow-lg transition-[background-color] hover:bg-green-400'
-          >
-            <PlusSvg />
-          </button>
-        </>
-      )}
-    </HomeLayout>
-  );
-}

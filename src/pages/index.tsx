@@ -20,25 +20,6 @@ const signInValidationSchema = z.object({
   password: z.string().nonempty({ message: 'Password is required.' }),
 });
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const session = (await getToken({ req })) as {
-    data: { username: string };
-  };
-
-  if (session) {
-    return {
-      redirect: {
-        destination: `/${session.data.username}/calories`,
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {},
-  };
-};
-
 export default function Welcome() {
   const router = useRouter();
 
@@ -130,3 +111,22 @@ export default function Welcome() {
     </WelcomeLayout>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const session = (await getToken({ req })) as {
+    data: { username: string };
+  };
+
+  if (session) {
+    return {
+      redirect: {
+        destination: `/${session.data.username}/calories`,
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
