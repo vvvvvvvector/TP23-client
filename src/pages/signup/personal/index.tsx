@@ -41,25 +41,6 @@ const personalValidationSchema = z.object({
   activity: z.string(),
 });
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const session = (await getToken({ req })) as {
-    data: { username: string };
-  };
-
-  if (session) {
-    return {
-      redirect: {
-        destination: `/${session.data.username}/calories`,
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {},
-  };
-};
-
 export default function Personal() {
   const router = useRouter();
 
@@ -363,3 +344,22 @@ export default function Personal() {
     </WelcomeLayout>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const session = (await getToken({ req })) as {
+    data: { username: string };
+  };
+
+  if (session) {
+    return {
+      redirect: {
+        destination: `/${session.data.username}/calories`,
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
