@@ -110,7 +110,7 @@ export default function Personal() {
       });
 
       if (result?.ok) {
-        router.push(`/${user.username}/calories`);
+        router.push(`/${user.username}/elements`);
 
         toast.success('Sign up successfully.', { id });
       } else {

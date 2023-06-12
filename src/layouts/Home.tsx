@@ -40,11 +40,11 @@ const Home: FC<HomeProps> = ({ children }) => {
         </div>
         <div className='flex w-full flex-col gap-10'>
           <button
-            onClick={() => router.push(`/${username}/calories`)}
+            onClick={() => router.push(`/${username}/elements`)}
             className='flex h-[50px] items-center justify-between rounded-lg border-b-2 border-b-violet-500 bg-violet-200 px-7 transition-[background-color] hover:bg-violet-300 max-[1000px]:justify-center max-[550px]:px-0'
           >
             <CaloriesSvg className='text-[#1E293B]' />
-            <span className='font-medium max-[1000px]:hidden'>Calories</span>
+            <span className='font-medium max-[1000px]:hidden'>Elements</span>
           </button>
           <button
             onClick={() => router.push(`/${username}/fridge`)}
