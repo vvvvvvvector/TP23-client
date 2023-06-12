@@ -45,7 +45,7 @@ export default function Welcome() {
     console.log(result);
 
     if (result?.ok) {
-      router.push(`/${data.username}/calories`);
+      router.push(`/${data.username}/elements`);
 
       toast.success('Signed in successfully.', { id });
     } else {
@@ -120,7 +120,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   if (session) {
     return {
       redirect: {
-        destination: `/${session.data.username}/calories`,
+        destination: `/${session.data.username}/elements`,
         permanent: false,
       },
     };

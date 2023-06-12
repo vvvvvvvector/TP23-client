@@ -20,7 +20,7 @@ const DynamicCharts = dynamic(() => import('@/components/Charts'), {
   ssr: false,
 });
 
-export default function Calories({
+export default function Elements({
   data,
   token,
 }: {
