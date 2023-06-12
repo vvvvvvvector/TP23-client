@@ -1,15 +1,16 @@
-import { FC } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
 
-import { ProductType } from '@/types/shared';
+import { AddProductType, FridgeProductsType } from '@/types/shared';
 
 import { useForm, FieldValues } from 'react-hook-form';
 
 interface AddProductProps {
   setAddProduct: (value: boolean) => void;
+  setData: Dispatch<SetStateAction<FridgeProductsType>>;
 }
 
-const AddProduct: FC<AddProductProps> = ({ setAddProduct }) => {
+const AddProduct: FC<AddProductProps> = ({ setAddProduct, setData }) => {
   const {
     handleSubmit,
     register,
@@ -20,7 +21,7 @@ const AddProduct: FC<AddProductProps> = ({ setAddProduct }) => {
     const id = toast.loading('Adding elements...');
 
     try {
-      const obj: ProductType = {
+      const obj: AddProductType = {
         name:
           [...data.name].at(0).toUpperCase() + [...data.name].slice(1).join(''),
         location:
@@ -31,11 +32,11 @@ const AddProduct: FC<AddProductProps> = ({ setAddProduct }) => {
         quantity: +data.quantity,
       };
 
-      console.log(obj);
+      setData((prev) => [...prev, { id: prev.length + 1, ...obj }]);
 
       toast.success('Added successfully.', { id });
 
-      // setAddProduct(false);
+      setAddProduct(false);
     } catch (error) {
       toast.error('Something went wrong.', { id });
     }
@@ -121,6 +122,7 @@ const AddProduct: FC<AddProductProps> = ({ setAddProduct }) => {
                   required: true,
                 })}
                 type='number'
+                min={0}
                 step={0.001}
                 className={`${
                   errors.weight ? 'border-pink-400' : 'focus:border-emerald-300'
