@@ -2,7 +2,8 @@ import { useForm, FieldValues } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
-import { getToken } from 'next-auth/jwt';
+// import { GetServerSideProps } from 'next';
+// import { getToken } from 'next-auth/jwt';
 
 import { useRouter } from 'next/router';
 
@@ -11,7 +12,6 @@ import { PasswordContext } from '@/providers/PasswordProvider';
 import { PasswordContextStateType } from '@/providers/PasswordProvider';
 
 import WelcomeLayout from '@/layouts/Welcome';
-import { GetServerSideProps } from 'next';
 
 const passwordValidationSchema = z
   .object({
@@ -109,21 +109,21 @@ export default function Password() {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const session = (await getToken({ req })) as {
-    data: { username: string };
-  };
+// export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+//   const session = (await getToken({ req })) as {
+//     data: { username: string };
+//   };
 
-  if (session) {
-    return {
-      redirect: {
-        destination: `/${session.data.username}/calories`,
-        permanent: false,
-      },
-    };
-  }
+//   if (session) {
+//     return {
+//       redirect: {
+//         destination: `/${session.data.username}/calories`,
+//         permanent: false,
+//       },
+//     };
+//   }
 
-  return {
-    props: {},
-  };
-};
+//   return {
+//     props: {},
+//   };
+// };

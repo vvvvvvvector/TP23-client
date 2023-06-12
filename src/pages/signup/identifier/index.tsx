@@ -1,10 +1,10 @@
 import { useContext } from 'react';
 import { useForm, FieldValues } from 'react-hook-form';
 
-import { GetServerSideProps } from 'next';
+// import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 
-import { getToken } from 'next-auth/jwt';
+// import { getToken } from 'next-auth/jwt';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -107,21 +107,21 @@ export default function Identifier() {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const session = (await getToken({ req })) as {
-    data: { username: string };
-  };
+// export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+//   const session = (await getToken({ req })) as {
+//     data: { username: string };
+//   };
 
-  if (session) {
-    return {
-      redirect: {
-        destination: `/${session.data.username}/calories`,
-        permanent: false,
-      },
-    };
-  }
+//   if (session) {
+//     return {
+//       redirect: {
+//         destination: `/${session.data.username}/calories`,
+//         permanent: false,
+//       },
+//     };
+//   }
 
-  return {
-    props: {},
-  };
-};
+//   return {
+//     props: {},
+//   };
+// };

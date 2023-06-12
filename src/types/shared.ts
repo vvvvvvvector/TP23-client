@@ -9,9 +9,22 @@ export type SessionUserType = {
     sex: string;
     age: number;
     activity: string;
-    imgUrl: string;
+    imgUrl?: string;
   };
 };
+
+export type ProductType = {
+  id: number;
+  name: string;
+  location: string;
+  expires: string;
+  quantity: number;
+  weight: number;
+};
+
+export type AddProductType = Omit<ProductType, 'id'>;
+
+export type FridgeProductsType = Omit<ProductType, 'weight'>[];
 
 export type ChartsDataType = {
   donuts: DonutsDataType;
