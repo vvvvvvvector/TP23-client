@@ -13,6 +13,14 @@ export type SessionUserType = {
   };
 };
 
+export type ProductType = {
+  name: string;
+  location: string;
+  expires: string;
+  weight: number;
+  quantity: number;
+};
+
 export type ChartsDataType = {
   donuts: DonutsDataType;
   weekCalories: number[];

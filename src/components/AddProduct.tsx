@@ -1,18 +1,15 @@
 import { FC } from 'react';
 import toast from 'react-hot-toast';
 
-import { useRouter } from 'next/router';
+import { ProductType } from '@/types/shared';
 
 import { useForm, FieldValues } from 'react-hook-form';
 
-interface AddDailyProps {
-  setAddDaily: (openOverlay: boolean) => void;
-  token: string | undefined;
+interface AddProductProps {
+  setAddProduct: (value: boolean) => void;
 }
 
-const AddDaily: FC<AddDailyProps> = ({ setAddDaily, token }) => {
-  const router = useRouter();
-
+const AddProduct: FC<AddProductProps> = ({ setAddProduct }) => {
   const {
     handleSubmit,
     register,
@@ -23,29 +20,22 @@ const AddDaily: FC<AddDailyProps> = ({ setAddDaily, token }) => {
     const id = toast.loading('Adding elements...');
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/calories`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          calories: +data.calories,
-          protein: +data.protein,
-          fat: +data.fat,
-          carbohydrates: +data.carbohydrates,
-        }),
-      });
+      const obj: ProductType = {
+        name:
+          [...data.name].at(0).toUpperCase() + [...data.name].slice(1).join(''),
+        location:
+          [...data.location].at(0).toUpperCase() +
+          [...data.location].slice(1).join(''),
+        expires: data.expires,
+        weight: +data.weight,
+        quantity: +data.quantity,
+      };
 
-      const json = await res.json();
+      console.log(obj);
 
-      if (json.message === 'Element added') {
-        toast.success('Added successfully.', { id });
+      toast.success('Added successfully.', { id });
 
-        router.replace(router.asPath);
-
-        setAddDaily(false);
-      }
+      // setAddProduct(false);
     } catch (error) {
       toast.error('Something went wrong.', { id });
     }
@@ -54,14 +44,14 @@ const AddDaily: FC<AddDailyProps> = ({ setAddDaily, token }) => {
   return (
     <div className='relative grid h-full w-full place-items-center'>
       <button
-        onClick={() => setAddDaily(false)}
+        onClick={() => setAddProduct(false)}
         className='absolute left-10 top-10 text-lg text-neutral-400 transition-[color] hover:text-neutral-500'
       >
         {'<   Go back'}
       </button>
       <div className='flex flex-col items-center gap-5'>
         <h1 className='text-center text-3xl font-bold'>
-          Info about what You just have eaten 📊
+          Info about about a product 😋
         </h1>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -69,71 +59,92 @@ const AddDaily: FC<AddDailyProps> = ({ setAddDaily, token }) => {
         >
           <div className='block'>
             <div className='mt-2 flex items-center justify-between gap-5 rounded'>
-              <label className='text-lg'>Calories (kkal):</label>
+              <label className='text-lg'>Name:</label>
               <input
-                {...register('calories', {
+                {...register('name', {
                   required: true,
                 })}
-                min={0}
-                type='number'
+                type='text'
                 className={`${
-                  errors.calories
-                    ? 'border-pink-400'
-                    : 'focus:border-emerald-300'
+                  errors.name ? 'border-pink-400' : 'focus:border-emerald-300'
                 } box-border w-full max-w-[180px] rounded border border-[#eaeaea] bg-none p-2 `}
-                placeholder=''
+                placeholder='Coca-Cola'
               />
             </div>
           </div>
           <div className='block'>
             <div className='mt-2 flex items-center justify-between gap-5 rounded'>
-              <label className='text-lg'>Protein (g):</label>
+              <label className='text-lg'>Location:</label>
               <input
-                {...register('protein', {
+                {...register('location', {
                   required: true,
                 })}
-                min={0}
-                type='number'
+                type='text'
                 className={`${
-                  errors.protein
+                  errors.location
                     ? 'border-pink-400'
                     : 'focus:border-emerald-300'
                 } box-border w-full max-w-[180px] rounded border border-[#eaeaea] bg-none p-2 `}
-                placeholder=''
+                placeholder='fridge'
+              />
+            </div>
+          </div>
+          <div className='flex flex-col gap-7 text-center'>
+            <div className='mt-2 flex items-center justify-between gap-5 rounded'>
+              <label className='text-lg'>Expire date:</label>
+              <input
+                {...register('expires', {
+                  required: true,
+                  pattern:
+                    /^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$/,
+                })}
+                type='text'
+                className={`${
+                  errors.expires
+                    ? 'border-pink-400'
+                    : 'focus:border-emerald-300'
+                } box-border w-full max-w-[180px] rounded border border-[#eaeaea] bg-none p-2 `}
+                placeholder='dd.mm.yyyy'
+              />
+            </div>
+            {errors.expires && (
+              <span className='font-semibold'>
+                Wrong date format! Must be dd.mm.yyyy
+              </span>
+            )}
+          </div>
+          <div className='block'>
+            <div className='mt-2 flex items-center justify-between gap-5 rounded'>
+              <label className='text-lg'>Weight (g):</label>
+              <input
+                {...register('weight', {
+                  required: true,
+                })}
+                type='number'
+                step={0.001}
+                className={`${
+                  errors.weight ? 'border-pink-400' : 'focus:border-emerald-300'
+                } box-border w-full max-w-[180px] rounded border border-[#eaeaea] bg-none p-2 `}
+                placeholder='55,5'
               />
             </div>
           </div>
           <div className='block'>
             <div className='mt-2 flex items-center justify-between gap-5 rounded'>
-              <label className='text-lg'>Fat (g):</label>
+              <label className='text-lg'>Quantity:</label>
               <input
-                {...register('fat', {
+                {...register('quantity', {
                   required: true,
                 })}
                 min={0}
+                step={1}
                 type='number'
                 className={`${
-                  errors.fat ? 'border-pink-400' : 'focus:border-emerald-300'
-                } box-border w-full max-w-[180px] rounded border border-[#eaeaea] bg-none p-2 `}
-                placeholder=''
-              />
-            </div>
-          </div>
-          <div className='block'>
-            <div className='mt-2 flex items-center justify-between gap-5 rounded'>
-              <label className='text-lg'>Carbohydrates (g):</label>
-              <input
-                {...register('carbohydrates', {
-                  required: true,
-                })}
-                min={0}
-                type='number'
-                className={`${
-                  errors.carbohydrates
+                  errors.quantity
                     ? 'border-pink-400'
                     : 'focus:border-emerald-300'
                 } box-border w-full max-w-[180px] rounded border border-[#eaeaea] bg-none p-2 `}
-                placeholder=''
+                placeholder='5'
               />
             </div>
           </div>
@@ -141,7 +152,7 @@ const AddDaily: FC<AddDailyProps> = ({ setAddDaily, token }) => {
             type='submit'
             className='flex w-[100%] items-center justify-center rounded bg-green-300 p-3 font-medium text-white transition-[background-color] hover:bg-green-400 active:bg-green-500 disabled:bg-gray-200'
           >
-            <span>Add stats</span>
+            <span>Add product</span>
           </button>
         </form>
       </div>
@@ -149,4 +160,4 @@ const AddDaily: FC<AddDailyProps> = ({ setAddDaily, token }) => {
   );
 };
 
-export default AddDaily;
+export default AddProduct;

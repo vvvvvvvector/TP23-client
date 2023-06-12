@@ -8,9 +8,11 @@ import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
 import HomeLayout from '@/layouts/Home';
 
-import { DeleteSvg, SearchSvg } from '@/assets/svgs';
+import { DeleteSvg, PlusSvg, QrSvg, SearchSvg } from '@/assets/svgs';
+import AddProduct from '@/components/AddProduct';
 
 export default function Fridge() {
+  const [addProduct, setAddProduct] = useState(false);
   const [search, setSearch] = useState('');
 
   const [data, setData] = useState([
@@ -97,7 +99,7 @@ export default function Fridge() {
           <div key={item.id} className='flex justify-between'>
             <div className='flex w-full transform justify-between rounded-lg border-b-[3px] border-neutral-300 bg-neutral-100 px-5 py-2 text-lg transition-[transform] hover:scale-[1.02]'>
               <div>
-                <span className='mr-4 cursor-pointer'>{`(${item.quantity})`}</span>
+                <span className='mr-4 cursor-pointer'>{`[${item.quantity}]`}</span>
                 <span className='cursor-pointer'>{item.name}</span>
               </div>
               <div className='flex w-[55%] justify-between'>
@@ -125,24 +127,43 @@ export default function Fridge() {
         );
       })
     ) : (
-      <div className='text-center font-bold'>{`No ${search} in Your fridge :<`}</div>
+      <div className='text-center text-xl font-bold'>{`No ${search} in Your fridge :<`}</div>
     );
   };
 
   return (
     <HomeLayout>
-      <div className='mt-[20px] flex justify-center'>
-        <div className='mb-[5px] flex w-full max-w-[300px] items-center justify-between rounded-lg border border-neutral-200 p-3'>
-          <SearchSvg className='scale-[0.65] transform' />
-          <input
-            onChange={(e) => setSearch(e.target.value)}
-            className='w-[237px]'
-            type='text'
-            placeholder='what do you want to find...'
-          />
-        </div>
-      </div>
-      <div className='flex w-full flex-col gap-5 px-10 py-5'>{products()}</div>
+      {addProduct ? (
+        <AddProduct setAddProduct={setAddProduct} />
+      ) : (
+        <>
+          <div className='mt-[20px] flex justify-between px-10'>
+            <div className='mb-[5px] flex w-full max-w-[370px] items-center justify-between rounded-lg border border-neutral-200 p-3'>
+              <SearchSvg className='scale-[0.75] transform' />
+              <input
+                onChange={(e) => setSearch(e.target.value)}
+                className='w-[300px]'
+                type='text'
+                placeholder='what do you want to find...'
+              />
+            </div>
+            <div className='flex gap-7'>
+              <button className='relative h-14 w-14 rounded-full bg-green-300 p-6 shadow-md transition-[background-color] hover:bg-green-400'>
+                <QrSvg className='absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] scale-[0.75] transform' />
+              </button>
+              <button
+                onClick={() => setAddProduct(true)}
+                className='relative h-14 w-14 rounded-full bg-green-300 p-6 shadow-md transition-[background-color] hover:bg-green-400'
+              >
+                <PlusSvg className='absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] scale-[0.75] transform' />
+              </button>
+            </div>
+          </div>
+          <div className='flex w-full flex-col gap-5 px-10 py-5'>
+            {products()}
+          </div>
+        </>
+      )}
     </HomeLayout>
   );
 }

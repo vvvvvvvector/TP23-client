@@ -7,3 +7,4 @@ export { default as PlusSvg } from './plus.svg';
 export { default as DefaultUserImage } from './defaultUserImage.svg';
 export { default as SearchSvg } from './search.svg';
 export { default as DeleteSvg } from './delete.svg';
+export { default as QrSvg } from './qr.svg';
